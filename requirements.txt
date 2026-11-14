@@ -1,0 +1,5 @@
+# The core pipeline uses only the Python standard library (3.10+).
+# Optional: run the same graph on LangGraph instead of the built-in runner.
+langgraph>=0.2
+# Tests
+pytest>=7

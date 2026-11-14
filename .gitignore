@@ -1,0 +1,6 @@
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+# Keep outputs/ and memory/ committed for the submission so reviewers can see real runs.

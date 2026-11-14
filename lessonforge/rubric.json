@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "notes": "Every check is binary. The lesson ships only if ALL checks pass. 'code' checks are deterministic Python; 'llm' checks are judged by a separate LLM call that must quote evidence.",
+  "checks": [
+    {
+      "id": "D1_structure",
+      "dimension": "coherent teaching flow",
+      "type": "code",
+      "description": "All required sections exist, in teaching order: What is it -> Why it matters -> How it works -> Worked example -> Key words -> Recap -> Check your understanding."
+    },
+    {
+      "id": "D2_length",
+      "dimension": "covers the key points",
+      "type": "code",
+      "description": "Lesson body is between 700 and 2000 words: long enough to teach, short enough to finish in one sitting (~10-12 min)."
+    },
+    {
+      "id": "D3_sentence_length",
+      "dimension": "beginner-friendly language",
+      "type": "code",
+      "description": "Average sentence length <= 16 words and no sentence longer than 30 words. Long sentences are the #1 barrier for readers with limited English."
+    },
+    {
+      "id": "D4_readability",
+      "dimension": "beginner-friendly language",
+      "type": "code",
+      "description": "Flesch Reading Ease >= 55 on the prose (glossary terms excluded), i.e. roughly 'plain English'."
+    },
+    {
+      "id": "D5_hard_words",
+      "dimension": "beginner-friendly language",
+      "type": "code",
+      "description": "None of the words on the hard-vocabulary blocklist (e.g. utilize, leverage, paradigm, facilitate, plethora) appear."
+    },
+    {
+      "id": "D6_glossary_coverage",
+      "dimension": "clear, no unexplained jargon",
+      "type": "code",
+      "description": "Every technical term from the jargon list that is used in the lesson also appears in the 'Key words' section."
+    },
+    {
+      "id": "D7_quiz",
+      "dimension": "teaches by example",
+      "type": "code",
+      "description": "'Check your understanding' has at least 3 questions and gives an answer for each."
+    },
+    {
+      "id": "J1_accurate",
+      "dimension": "accurate & grounded",
+      "type": "llm",
+      "description": "No statement contradicts the reference facts, and none of the listed misconceptions (M1-M4) is stated as true."
+    },
+    {
+      "id": "J2_grounded",
+      "dimension": "accurate & grounded",
+      "type": "llm",
+      "description": "Every specific factual claim (names, dates, numbers, product names, technical claims) is supported by the reference facts. Analogies and the worked example are allowed if clearly presented as illustrations."
+    },
+    {
+      "id": "J3_key_points",
+      "dimension": "covers the key points",
+      "type": "llm",
+      "description": "Covers ALL of: (a) definition of RAG with the expansion of the acronym, (b) LLM knowledge limits - cut-off date or private data, (c) hallucination, (d) why RAG instead of retraining, (e) the steps chunk -> embed -> store -> retrieve -> augment -> generate, (f) RAG does not change the model's weights, (g) RAG reduces but does not remove errors."
+    },
+    {
+      "id": "J4_teaches_by_example",
+      "dimension": "teaches by example",
+      "type": "llm",
+      "description": "Uses at least one concrete, everyday example familiar to a young person in India, and walks ONE running example through every step of how RAG works (not just mentions it once)."
+    },
+    {
+      "id": "J5_jargon_explained",
+      "dimension": "clear, no unexplained jargon",
+      "type": "llm",
+      "description": "Every technical term is explained in simple words at (or right before) its FIRST use. No term is used before it is explained."
+    },
+    {
+      "id": "J6_language_fit",
+      "dimension": "beginner-friendly language",
+      "type": "llm",
+      "description": "Language suits a 12th-grade graduate from a non-English-medium school: short simple sentences, common words, no idioms or slang, no references that need Western/US cultural knowledge, friendly encouraging tone."
+    },
+    {
+      "id": "J7_flow",
+      "dimension": "coherent teaching flow",
+      "type": "llm",
+      "description": "Each section builds on the previous one, there are no forward references to unexplained ideas, no contradictions between sections, and the recap matches what was taught."
+    },
+    {
+      "id": "J8_standalone",
+      "dimension": "beginner-friendly language",
+      "type": "llm",
+      "description": "Assumes zero background: does not require knowing programming, maths beyond school level, machine learning, or neural networks to follow the lesson."
+    }
+  ]
+}
