@@ -29,7 +29,7 @@ class LLMConfig:
     provider: str
     model: str
     temperature: float = 0.4
-    max_tokens: int = 4096
+    max_tokens: int = 8192
 
 
 DEFAULT_MODELS = {
@@ -114,13 +114,17 @@ class LLM:
         if p == "gemini":
             key = os.getenv("GEMINI_API_KEY") or os.environ["GOOGLE_API_KEY"]
             out = _post(
-                f"https://generativelanguage.googleapis.com/v1beta/models/{self.cfg.model}:generateContent?key={key}",
+                f"https://generativelanguage.googleapis.com/v1beta/models/{self.cfg.model}:generateContent",
                 {"systemInstruction": {"parts": [{"text": system}]},
                  "contents": [{"role": "user", "parts": [{"text": user}]}],
                  "generationConfig": {"temperature": t, "maxOutputTokens": self.cfg.max_tokens}},
-                {},
+                {"x-goog-api-key": key},  # header works for both classic "AIza..." and newer "AQ..." keys
             )
-            return "".join(part.get("text", "") for part in out["candidates"][0]["content"]["parts"])
+            parts = out.get("candidates", [{}])[0].get("content", {}).get("parts", [])
+            text = "".join(p.get("text", "") for p in parts if not p.get("thought"))
+            if not text:
+                raise LLMError(f"Gemini returned no text: {json.dumps(out)[:300]}")
+            return text
         raise LLMError(f"Unknown provider {p}")
 
     def call_json(self, system: str, user: str, *, tag: str = "") -> dict:
