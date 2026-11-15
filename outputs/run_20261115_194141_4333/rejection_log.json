@@ -1,0 +1,467 @@
+{
+  "run_id": "run_20261115_194141_4333",
+  "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+  "status": "NEEDS_HUMAN_REVIEW",
+  "final_attempt": 3,
+  "max_retries": 2,
+  "generator_model": "gemini:gemini-3.6-flash",
+  "judge_model": "openai_compat:openai/gpt-oss-20b",
+  "llm_calls": 39,
+  "learned_rules_used": [
+    "- [J5_jargon_explained] Explain every technical term in plain language within the main body text at its very first appearance, before using it elsewhere or in Key words.",
+    "- [D6_glossary_coverage] Include every technical term and acronym mentioned in the lesson (e.g., prompt, retrieval, augment, top-k, LLM, chunk) in the Key words glossary.",
+    "- [J2_grounded] Strictly verify proper nouns, acronyms, and factual claims against the reference facts without inventing or altering any details.",
+    "- [J4_teaches_by_example] Feature the running example character explicitly in every single step of the pipeline and mechanism explanation.",
+    "- [D3_sentence_length] Keep sentences under 25 words max and target an average under 14 words by splitting compound sentences.",
+    "- [D1_structure] Include all required sections—Example, Key Words, Lesson Body, Recap, and Quiz—and maintain total word count between 700 and 2000 words.",
+    "- [D7_quiz] Include at least 3 quiz questions at the end, providing an explicit answer for each question.",
+    "- [J3_key_points] Detail the complete process sequence step-by-step (embed, store, retrieve, augment, generate) without skipping any core stage."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "injected_error": null,
+      "changes_requested": [],
+      "regressions": [],
+      "passed": false,
+      "score": "12/15",
+      "results": [
+        {
+          "id": "D1_structure",
+          "passed": true,
+          "reason": "All 7 sections present and in order",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "code"
+        },
+        {
+          "id": "D2_length",
+          "passed": true,
+          "reason": "1376 words (allowed 700-2000)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "code"
+        },
+        {
+          "id": "D3_sentence_length",
+          "passed": true,
+          "reason": "Average 11.3 words/sentence (max 16); 0 sentence(s) over 30 words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D4_readability",
+          "passed": true,
+          "reason": "Flesch Reading Ease 69.1 (need >= 55)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D5_hard_words",
+          "passed": true,
+          "reason": "No hard words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D6_glossary_coverage",
+          "passed": true,
+          "reason": "Every jargon term used is in Key words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "code"
+        },
+        {
+          "id": "D7_quiz",
+          "passed": true,
+          "reason": "4 question(s), 4 answer(s) (need >= 3, each answered)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "code"
+        },
+        {
+          "id": "J1_accurate",
+          "passed": true,
+          "reason": "All statements align with reference facts and avoid misconceptions.",
+          "evidence": "\"RAG stands for Retrieval-Augmented Generation.\" \"RAG does not change these internal settings. Instead, it gives facts to the model at question time.\"",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J2_grounded",
+          "passed": false,
+          "reason": "Judge error (fail-closed): no JSON object found",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J3_key_points",
+          "passed": true,
+          "reason": "All required points are covered with clear statements.",
+          "evidence": "(a) \"RAG stands for Retrieval-Augmented Generation.\" (b) \"An LLM learns from data up to its training cut-off date.\" and \"An LLM has also not seen your private documents.\" (c) \"Without extra help, LLMs can hallucinate.\" (d) \"RAG lets an application use new or private facts without retraining the model.\" (e) \"Step 1: Chunk (Prepare the text)\" \"Step 2: Embed and Store\" \"Step 3: Retrieve (Search)\" \"Step 4: Augment (Add context)\" \"Step 5: Generate (Write the answer)\" (f) \"RAG does not change the internal weights (memory settings) of the LLM.\" (g) \"RAG reduces hallucination, but it does not guarantee 100 percent correct answers.\"",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "llm"
+        },
+        {
+          "id": "J4_teaches_by_example",
+          "passed": true,
+          "reason": "The lesson uses the concrete example of a student named Anand and his college handbook, and the example is referenced in every step of the RAG pipeline.",
+          "evidence": "\"Let us follow a student named Anand. Anand wants to know his college hostel curfew time from a long college PDF document.\" \n\"Step 1: Chunk (Prepare the text) ... For Anand's college, the system splits the college handbook into small chunks about hostel rules, library rules, and fee details.\" \n\"Step 3: Retrieve (Search) ... Anand types his question: \"What is the hostel entry time at night?\"\" \n\"Step 4: Augment (Add context) ... The system adds the retrieved chunk into the prompt together with Anand's question.\" \n\"Step 5: Generate (Write the answer) ... The LLM writes the final answer: \"The hostel entry time is 9:00 PM.\"",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "llm"
+        },
+        {
+          "id": "J5_jargon_explained",
+          "passed": false,
+          "reason": "Technical terms 'retrieve', 'generate', and 'hallucinate' are used before being explained in the body.",
+          "evidence": "\"The system first finds (retrieves) helpful text pieces from a collection of documents.\"",
+          "fix": "Add a simple definition for each term immediately after its first use in the body text, e.g., after the first use of 'retrieve', write: 'Retrieve means to search and find relevant pieces of text.' Do the same for 'generate' and 'hallucinate'.",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm"
+        },
+        {
+          "id": "J6_language_fit",
+          "passed": true,
+          "reason": "All sentences are short, use common words, no idioms or slang, no Western cultural references, and the tone is friendly and encouraging.",
+          "evidence": "\"RAG combines a search step with a Large Language Model (LLM).\" \"RAG does not change these internal settings.\"",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        },
+        {
+          "id": "J7_flow",
+          "passed": false,
+          "reason": "The lesson references \"keyword search\" without explaining it, creating a forward reference to an unexplained idea.",
+          "evidence": "\"Retrieval can also use keyword search, or a mix of keyword and meaning search (hybrid search).\"",
+          "fix": "Add a brief explanation of what keyword search is, e.g., \"Keyword search looks for exact words or phrases in the documents, unlike semantic search which uses meaning.\"",
+          "dimension": "coherent teaching flow",
+          "kind": "llm"
+        },
+        {
+          "id": "J8_standalone",
+          "passed": true,
+          "reason": "The lesson explains all concepts in plain language without assuming prior knowledge of programming, advanced maths, or machine learning.",
+          "evidence": "\"RAG combines a search step with a Large Language Model (LLM). A Large Language Model (LLM) is an AI program trained to read and write text like a human.\" \"Embeddings are not word summaries. They are purely lists of numbers.\" \"Weights are the millions of internal number settings inside an AI model that store its learned patterns.\"",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "injected_error": null,
+      "changes_requested": [
+        "- [J2_grounded] Judge error (fail-closed): no JSON object found\n  Evidence: -\n  Fix: -",
+        "- [J5_jargon_explained] Technical terms 'retrieve', 'generate', and 'hallucinate' are used before being explained in the body.\n  Evidence: \"The system first finds (retrieves) helpful text pieces from a collection of documents.\"\n  Fix: Add a simple definition for each term immediately after its first use in the body text, e.g., after the first use of 'retrieve', write: 'Retrieve means to search and find relevant pieces of text.' Do the same for 'generate' and 'hallucinate'.",
+        "- [J7_flow] The lesson references \"keyword search\" without explaining it, creating a forward reference to an unexplained idea.\n  Evidence: \"Retrieval can also use keyword search, or a mix of keyword and meaning search (hybrid search).\"\n  Fix: Add a brief explanation of what keyword search is, e.g., \"Keyword search looks for exact words or phrases in the documents, unlike semantic search which uses meaning.\""
+      ],
+      "regressions": [
+        "J6_language_fit"
+      ],
+      "passed": false,
+      "score": "12/15",
+      "results": [
+        {
+          "id": "D1_structure",
+          "passed": true,
+          "reason": "All 7 sections present and in order",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "code"
+        },
+        {
+          "id": "D2_length",
+          "passed": true,
+          "reason": "1435 words (allowed 700-2000)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "code"
+        },
+        {
+          "id": "D3_sentence_length",
+          "passed": true,
+          "reason": "Average 11.3 words/sentence (max 16); 0 sentence(s) over 30 words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D4_readability",
+          "passed": true,
+          "reason": "Flesch Reading Ease 69.4 (need >= 55)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D5_hard_words",
+          "passed": true,
+          "reason": "No hard words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D6_glossary_coverage",
+          "passed": true,
+          "reason": "Every jargon term used is in Key words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "code"
+        },
+        {
+          "id": "D7_quiz",
+          "passed": true,
+          "reason": "4 question(s), 4 answer(s) (need >= 3, each answered)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "code"
+        },
+        {
+          "id": "J1_accurate",
+          "passed": true,
+          "reason": "All statements align with reference facts and avoid misconceptions.",
+          "evidence": "\"RAG does not change these internal settings. Instead, it gives facts to the model at question time.\" and \"RAG reduces hallucination, but it does not guarantee 100 percent correct answers.\"",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J2_grounded",
+          "passed": false,
+          "reason": "Judge error (fail-closed): no JSON object found",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J3_key_points",
+          "passed": true,
+          "reason": "All required points are present in the lesson.",
+          "evidence": "\"RAG stands for Retrieval-Augmented Generation.\"; \"An LLM learns from data up to its training cut-off date. It does not know events or documents created after its training.\"; \"Without extra help, LLMs can hallucinate. To hallucinate means to output answers that sound confident but are wrong or made up.\"; \"RAG lets an application use new or private facts without retraining the model. Retraining means training the AI model all over again from scratch.\"; \"Step 1: Chunk (Prepare the text)\"; \"Step 2: Embed and Store\"; \"Step 3: Retrieve (Search)\"; \"Step 4: Augment (Add context)\"; \"Step 5: Generate (Write the answer)\"; \"RAG does not change the internal weights (memory settings) of the LLM. The model is not retrained.\"; \"RAG reduces hallucination, but it does not guarantee 100 percent correct answers.\"",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "llm"
+        },
+        {
+          "id": "J4_teaches_by_example",
+          "passed": true,
+          "reason": "The lesson consistently uses the example of Anand asking about hostel curfew in every step of the RAG pipeline, which is a familiar everyday scenario for an Indian student.",
+          "evidence": "\"For Anand's college, the system splits the college handbook into small chunks about hostel rules, library rules, and fee details.\" \"Anand types his question: 'What is the hostel entry time at night?'\" \"The system adds the retrieved chunk into the prompt together with Anand's question.\" \"The LLM writes the final answer: 'The hostel entry time is 9:00 PM.'\"",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "llm"
+        },
+        {
+          "id": "J5_jargon_explained",
+          "passed": false,
+          "reason": "The first use of the term RAG is not immediately explained.",
+          "evidence": "\"Retrieval-Augmented Generation (RAG) helps computer programs search documents to give correct answers to questions.\" (RAG appears here before its explanation in the next sentence.)",
+          "fix": "Explain RAG in the same sentence or immediately before its first use, e.g., \"RAG (Retrieval-Augmented Generation) is a technique that…\"",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm"
+        },
+        {
+          "id": "J6_language_fit",
+          "passed": false,
+          "reason": "Judge error (fail-closed): no JSON object found",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        },
+        {
+          "id": "J7_flow",
+          "passed": true,
+          "reason": "All sections introduce concepts in order, no forward references, no contradictions, and the recap accurately reflects the content.",
+          "evidence": "\"RAG does not change the internal weights\" and \"RAG reduces hallucination but does not guarantee complete accuracy\" show consistency, and the recap bullet \"RAG lets models answer from private or new documents without changing model weights\" matches earlier statements.",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "llm"
+        },
+        {
+          "id": "J8_standalone",
+          "passed": true,
+          "reason": "The lesson explains all concepts in plain language and does not assume prior knowledge of programming, machine learning, neural networks, or advanced mathematics.",
+          "evidence": "\"An embedding is a list of numbers that represents the meaning of text.\" \"RAG does not change the internal weights (memory settings) of the LLM.\"",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "injected_error": null,
+      "changes_requested": [
+        "- [J2_grounded] Judge error (fail-closed): no JSON object found\n  Evidence: -\n  Fix: -",
+        "- [J5_jargon_explained] The first use of the term RAG is not immediately explained.\n  Evidence: \"Retrieval-Augmented Generation (RAG) helps computer programs search documents to give correct answers to questions.\" (RAG appears here before its explanation in the next sentence.)\n  Fix: Explain RAG in the same sentence or immediately before its first use, e.g., \"RAG (Retrieval-Augmented Generation) is a technique that…\"",
+        "- [J6_language_fit] Judge error (fail-closed): no JSON object found\n  Evidence: -\n  Fix: -"
+      ],
+      "regressions": [],
+      "passed": false,
+      "score": "13/15",
+      "results": [
+        {
+          "id": "D1_structure",
+          "passed": true,
+          "reason": "All 7 sections present and in order",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "code"
+        },
+        {
+          "id": "D2_length",
+          "passed": true,
+          "reason": "1472 words (allowed 700-2000)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "code"
+        },
+        {
+          "id": "D3_sentence_length",
+          "passed": true,
+          "reason": "Average 11.3 words/sentence (max 16); 0 sentence(s) over 30 words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D4_readability",
+          "passed": true,
+          "reason": "Flesch Reading Ease 68.5 (need >= 55)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D5_hard_words",
+          "passed": true,
+          "reason": "No hard words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D6_glossary_coverage",
+          "passed": true,
+          "reason": "Every jargon term used is in Key words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "code"
+        },
+        {
+          "id": "D7_quiz",
+          "passed": true,
+          "reason": "4 question(s), 4 answer(s) (need >= 3, each answered)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "code"
+        },
+        {
+          "id": "J1_accurate",
+          "passed": true,
+          "reason": "All statements align with reference facts and avoid misconceptions.",
+          "evidence": "\"RAG does not change these internal settings. Instead, it gives facts to the model at question time.\"; \"RAG reduces hallucination, but it does not guarantee 100 percent correct answers. You should still check answers for important tasks.\"; \"RAG lets an application use new or private facts without retraining the model.\"; \"Embeddings are a list of numbers that represents the meaning of a text.\"; \"Retrieval can also use keyword search. Retrieval can also mix keyword search and meaning search. Mixing keyword search and meaning search is called hybrid search.\"",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J2_grounded",
+          "passed": false,
+          "reason": "Judge error (fail-closed): no JSON object found",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J3_key_points",
+          "passed": true,
+          "reason": "All required points are covered in the lesson.",
+          "evidence": "\"RAG stands for Retrieval-Augmented Generation.\"; \"An LLM learns from data up to its training cut-off date. It does not know events or documents created after its training.\"; \"An LLM has also not seen your private documents.\"; \"Without extra help, LLMs can hallucinate.\"; \"Giving source text to the model reduces hallucination. It does not completely remove mistakes, but it makes answers much more reliable.\"; \"RAG lets an application use new or private facts without retraining the model.\"; \"Updating a document collection for RAG is cheaper and faster than retraining or fine-tuning.\"; \"Step 1: Chunk (Prepare the text)\"; \"Step 2: Embed and Store\"; \"Step 3: Retrieve\"; \"Step 4: Augment\"; \"Step 5: Generate\"; \"RAG does not change the internal weights (memory settings) of the LLM.\"; \"RAG reduces hallucination, but it does not guarantee 100 percent correct answers.\"",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "llm"
+        },
+        {
+          "id": "J4_teaches_by_example",
+          "passed": true,
+          "reason": "The example of Anand and his college handbook appears in every step of the RAG workflow.",
+          "evidence": "\"For Anand, the system splits his college handbook into small chunks about hostel rules, library rules, and fees.\" \"All chunks from Anand's handbook are now saved as embeddings inside the vector database.\" \"Anand types his question: 'What is the hostel entry time at night?'\" \"The system adds the retrieved chunk into the prompt together with Anand's question.\" \"The LLM writes the final answer for Anand: 'The hostel entry time is 9:00 PM.'\"",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "llm"
+        },
+        {
+          "id": "J5_jargon_explained",
+          "passed": false,
+          "reason": "Judge error (fail-closed): no JSON object found",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm"
+        },
+        {
+          "id": "J6_language_fit",
+          "passed": true,
+          "reason": "The lesson uses short, simple sentences with common words and no idioms, slang, or Western cultural references.",
+          "evidence": "\"RAG stands for Retrieval-Augmented Generation. It is a smart technique used in Artificial Intelligence (AI).\"",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        },
+        {
+          "id": "J7_flow",
+          "passed": true,
+          "reason": "All sections build on previously introduced concepts, there are no forward references or contradictions, and the recap accurately summarizes the content.",
+          "evidence": "\"RAG does not change the model weights.\" (Section: How does RAG work, Step 5) \"Fine-tuning changes the model weights.\" (Section: Why does RAG matter) \"RAG reduces hallucination, but it does not guarantee complete accuracy.\" (Section: Limits of RAG) \"RAG combines document retrieval with text generation by an LLM.\" (Recap) \"The recap matches what was taught.\" (Recap)",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "llm"
+        },
+        {
+          "id": "J8_standalone",
+          "passed": true,
+          "reason": "The lesson explains all concepts in plain language without assuming prior knowledge of programming, advanced maths, or machine learning.",
+          "evidence": "\"An embedding is a list of numbers that represents the meaning of a text.\"; \"RAG does not change the internal weights (memory settings) of the LLM.\"; \"RAG combines a search step with a Large Language Model (LLM). A Large Language Model (LLM) is a smart program trained to read and write text like a human.\"",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        }
+      ]
+    }
+  ]
+}

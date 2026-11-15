@@ -27,7 +27,7 @@ ROOT = Path.cwd()
 def _load_dotenv() -> None:
     p = ROOT / ".env"
     if p.exists():
-        for line in p.read_text().splitlines():
+        for line in p.read_text(encoding="utf-8").splitlines():
             line = line.strip()
             if line and not line.startswith("#") and "=" in line:
                 k, v = line.split("=", 1)
@@ -48,6 +48,12 @@ def _llms():
 
 
 def main(argv=None) -> int:
+    # Windows consoles default to cp1252; never crash on characters like non-breaking hyphens.
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
     _load_dotenv()
     ap = argparse.ArgumentParser(prog="lessonforge", description="Self-evaluating lesson generator")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -78,12 +84,20 @@ def main(argv=None) -> int:
             ap.error("--max-retries must be 0, 1 or 2 (the loop must terminate)")
         gen, judge = _llms()
         p = Pipeline(gen, judge, mem, a.out, a.max_retries, a.inject_error, not a.no_learn, engine=a.engine)
-        s = p.run(a.topic)
+        try:
+            s = p.run(a.topic)
+        except Exception as e:  # e.g. daily quota exhausted - explain instead of a long traceback
+            msg = str(e)
+            print(f"\nRUN STOPPED: {msg[:600]}")
+            if "quota" in msg.lower() or "429" in msg:
+                print("\n=> The API's free quota is used up. Wait for it to reset, or switch provider/model in .env "
+                      "(see README: 'Free API key options').")
+            return 1
         print(f"\nSTATUS: {s['status']}  |  lesson: {s['out_dir']}/lesson.md")
         return 0 if s["status"] == "SHIPPED" else 2
     if a.cmd == "eval":
         _, judge = _llms()
-        ev = Evaluator(judge, load_facts(a.topic), mem.extra_checks()).evaluate(Path(a.path).read_text())
+        ev = Evaluator(judge, load_facts(a.topic), mem.extra_checks()).evaluate(Path(a.path).read_text(encoding="utf-8"))
         for res in ev.results:
             print(f"{'PASS' if res.passed else 'FAIL'}  {res.id:<24} {res.reason}")
             if not res.passed and res.evidence:

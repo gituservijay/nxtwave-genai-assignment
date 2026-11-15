@@ -1,0 +1,196 @@
+{
+  "version": 1,
+  "runs": [
+    {
+      "run_id": "run_20261114_185453_3090",
+      "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "shipped": false,
+      "attempts": 3,
+      "first_score": "13/15",
+      "first_failed": [
+        "D6_glossary_coverage",
+        "J5_jargon_explained"
+      ],
+      "rules_used": 0,
+      "injected": null,
+      "ts": "2026-11-14 19:05:53"
+    },
+    {
+      "run_id": "run_20261114_191050_7931",
+      "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "shipped": false,
+      "attempts": 3,
+      "first_score": "11/15",
+      "first_failed": [
+        "D3_sentence_length",
+        "D6_glossary_coverage",
+        "J2_grounded",
+        "J5_jargon_explained"
+      ],
+      "rules_used": 3,
+      "injected": null,
+      "ts": "2026-11-14 19:22:00"
+    },
+    {
+      "run_id": "run_20261115_192035_3695",
+      "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "shipped": false,
+      "attempts": 3,
+      "first_score": "8/15",
+      "first_failed": [
+        "D1_structure",
+        "D2_length",
+        "D6_glossary_coverage",
+        "D7_quiz",
+        "J3_key_points",
+        "J4_teaches_by_example",
+        "J7_flow"
+      ],
+      "rules_used": 5,
+      "injected": null,
+      "ts": "2026-11-15 19:31:47"
+    },
+    {
+      "run_id": "run_20261115_194141_4333",
+      "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "shipped": false,
+      "attempts": 3,
+      "first_score": "12/15",
+      "first_failed": [
+        "J2_grounded",
+        "J5_jargon_explained",
+        "J7_flow"
+      ],
+      "rules_used": 8,
+      "injected": null,
+      "ts": "2026-11-15 20:04:10"
+    },
+    {
+      "run_id": "run_20261115_203624_6999",
+      "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "shipped": false,
+      "attempts": 1,
+      "first_score": "8/15",
+      "first_failed": [
+        "J1_accurate",
+        "J2_grounded",
+        "J3_key_points",
+        "J5_jargon_explained",
+        "J6_language_fit",
+        "J7_flow",
+        "J8_standalone"
+      ],
+      "rules_used": 8,
+      "injected": null,
+      "ts": "2026-11-15 20:37:19"
+    }
+  ],
+  "failure_counts": {
+    "D6_glossary_coverage": 3,
+    "J5_jargon_explained": 10,
+    "J4_teaches_by_example": 2,
+    "D3_sentence_length": 2,
+    "J2_grounded": 3,
+    "D1_structure": 1,
+    "D2_length": 1,
+    "D7_quiz": 1,
+    "J3_key_points": 1,
+    "J7_flow": 2,
+    "J6_language_fit": 1
+  },
+  "failure_examples": {
+    "D6_glossary_coverage": [
+      "Used but not in Key words: prompt, retrieval, top-k, augment",
+      "Used but not in Key words: retrieval, augment",
+      "Used but not in Key words: LLM / large language model, chunk, prompt, retrieval, hallucination, fine-tuning, augment"
+    ],
+    "J5_jargon_explained": [
+      "The term \"Fine-tuning\" is first introduced in the Key words section without any prior explanation in the main body.",
+      "The term RAG is used before it is explained, and the term prompt is used before any explanation (the key‑words list does not count).",
+      "The term \"weights\" is used before it is explained.",
+      "Technical terms 'retrieve', 'generate', and 'hallucinate' are used before being explained in the body.",
+      "The first use of the term RAG is not immediately explained."
+    ],
+    "J4_teaches_by_example": [
+      "The running example (Rahul) is not mentioned in every step of the 'How does RAG work?' section.",
+      "The lesson introduces the example of Priya only in the first step and does not show the example in the subsequent steps of the RAG pipeline."
+    ],
+    "D3_sentence_length": [
+      "Average 15.5 words/sentence (max 16); 1 sentence(s) over 30 words",
+      "Average 15.0 words/sentence (max 16); 1 sentence(s) over 30 words"
+    ],
+    "J2_grounded": [
+      "The lesson mentions a vector database named \"FAIPS\", which is not listed in the reference facts (the correct name is FAISS).",
+      "The lesson makes a factual claim not covered by the reference facts.",
+      "The lesson contains specific factual claims that are not supported by the reference facts."
+    ],
+    "D1_structure": [
+      "Missing sections: example, keywords, recap, quiz"
+    ],
+    "D2_length": [
+      "392 words (allowed 700-2000)"
+    ],
+    "D7_quiz": [
+      "0 question(s), 0 answer(s) (need >= 3, each answered)"
+    ],
+    "J3_key_points": [
+      "The lesson does not cover the full pipeline steps (embed → store → retrieve → augment → generate) after chunking."
+    ],
+    "J7_flow": [
+      "The lesson lacks a recap section that summarizes what was taught, violating the requirement that the recap matches the lesson content.",
+      "The lesson references \"keyword search\" without explaining it, creating a forward reference to an unexplained idea."
+    ],
+    "J6_language_fit": [
+      "The lesson includes a reference to Facebook/Meta, a Western company, which may require US cultural knowledge."
+    ]
+  },
+  "learned_rules": [
+    {
+      "check_id": "J5_jargon_explained",
+      "rule": "Define every technical term or acronym (e.g., RAG, weights, retrieve, hallucinate) in plain language at its exact first appearance in the body.",
+      "added_run": "run_20261115_194141_4333"
+    },
+    {
+      "check_id": "D6_glossary_coverage",
+      "rule": "List every technical term, acronym, or process word (e.g., prompt, chunk, top-k, augment) mentioned anywhere in the lesson inside the Key Words glossary.",
+      "added_run": "run_20261115_194141_4333"
+    },
+    {
+      "check_id": "J2_grounded",
+      "rule": "Strictly use facts, proper nouns, and acronyms provided in the reference data; do not alter names (e.g., FAISS) or introduce unverified claims.",
+      "added_run": "run_20261115_194141_4333"
+    },
+    {
+      "check_id": "J4_teaches_by_example",
+      "rule": "Mention the running example character by name in every single step of the pipeline, showing how their specific query/data moves through that step.",
+      "added_run": "run_20261115_194141_4333"
+    },
+    {
+      "check_id": "D3_sentence_length",
+      "rule": "Keep all sentences under 25 words and target an average under 14 words by splitting compound clauses into direct statements.",
+      "added_run": "run_20261115_194141_4333"
+    },
+    {
+      "check_id": "J7_flow",
+      "rule": "Avoid referencing unexplained terms beforehand, and conclude with a recap section that summarizes all core steps and ideas taught.",
+      "added_run": "run_20261115_194141_4333"
+    },
+    {
+      "check_id": "D1_structure",
+      "rule": "Include all required sections (Example, Key Words, Body, Recap, Quiz) and ensure the lesson total is strictly between 700 and 2000 words.",
+      "added_run": "run_20261115_194141_4333"
+    },
+    {
+      "check_id": "D7_quiz",
+      "rule": "End the lesson with at least three numbered quiz questions, providing an explicit answer for every question.",
+      "added_run": "run_20261115_194141_4333"
+    }
+  ],
+  "extra_checks": [],
+  "human_feedback": []
+}

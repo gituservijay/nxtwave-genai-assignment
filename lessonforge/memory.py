@@ -30,11 +30,11 @@ class Memory:
         self.path = Path(path)
         self.data = json.loads(json.dumps(DEFAULT))
         if self.path.exists():
-            self.data.update(json.loads(self.path.read_text()))
+            self.data.update(json.loads(self.path.read_text(encoding="utf-8")))
 
     def save(self) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        self.path.write_text(json.dumps(self.data, indent=2, ensure_ascii=False))
+        self.path.write_text(json.dumps(self.data, indent=2, ensure_ascii=False), encoding="utf-8")
 
     # ---- reading
     def rules_text(self) -> str:

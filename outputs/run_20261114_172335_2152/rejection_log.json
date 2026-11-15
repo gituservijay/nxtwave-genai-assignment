@@ -1,0 +1,460 @@
+{
+  "run_id": "run_20261114_172335_2152",
+  "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+  "status": "NEEDS_HUMAN_REVIEW",
+  "final_attempt": 1,
+  "max_retries": 2,
+  "generator_model": "gemini:gemini-3.6-flash",
+  "judge_model": "gemini:gemini-3.6-flash",
+  "llm_calls": 28,
+  "learned_rules_used": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "injected_error": null,
+      "changes_requested": [],
+      "regressions": [],
+      "passed": false,
+      "score": "13/15",
+      "results": [
+        {
+          "id": "D1_structure",
+          "passed": true,
+          "reason": "All 7 sections present and in order",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "code"
+        },
+        {
+          "id": "D2_length",
+          "passed": true,
+          "reason": "1403 words (allowed 700-2000)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "code"
+        },
+        {
+          "id": "D3_sentence_length",
+          "passed": true,
+          "reason": "Average 10.5 words/sentence (max 16); 0 sentence(s) over 30 words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D4_readability",
+          "passed": true,
+          "reason": "Flesch Reading Ease 72.9 (need >= 55)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D5_hard_words",
+          "passed": true,
+          "reason": "No hard words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D6_glossary_coverage",
+          "passed": true,
+          "reason": "Every jargon term used is in Key words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "code"
+        },
+        {
+          "id": "D7_quiz",
+          "passed": true,
+          "reason": "4 question(s), 4 answer(s) (need >= 3, each answered)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "code"
+        },
+        {
+          "id": "J1_accurate",
+          "passed": true,
+          "reason": "All factual statements in the lesson accurately match the reference facts, and all misconceptions (M1-M4) are explicitly stated as false.",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J2_grounded",
+          "passed": true,
+          "reason": "All factual claims, product names, dates, paper titles, and technical concepts directly match the reference facts. Analogies and worked examples are clearly marked as illustrations.",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J3_key_points",
+          "passed": true,
+          "reason": "The lesson covers all seven required key points clearly with accurate explanations and details.",
+          "evidence": "(a) 'RAG stands for Retrieval-Augmented Generation.' (b) 'Cut-off date: An LLM only knows information up to the day its training stopped... Private information: An LLM has not seen private files.' (c) 'Sometimes an LLM makes up answers that sound confident but are totally wrong. We call this wrong answer a hallucination.' (d) 'Updating a collection of documents for RAG is much faster and cheaper than retraining the AI model.' (e) 'Step 1: Chunking... Step 2: Embedding and Storing... Step 3: Retrieve... Step 4: Augment... Step 5: Generate' (f) 'RAG does not change the model's internal weights.' (g) 'RAG reduces hallucinations, but it does not completely remove them.'",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "llm"
+        },
+        {
+          "id": "J4_teaches_by_example",
+          "passed": true,
+          "reason": "The lesson uses a familiar, concrete example (a college exam rulebook PDF) and consistently carries it through all 5 steps of the 'How does RAG work?' section.",
+          "evidence": "Step 1: 'The 50-page college rulebook is cut into 100 small text chunks.'\nStep 2: 'The paragraph about math exam marks becomes a list of numbers.'\nStep 3: 'The system finds Chunk #42 from the rulebook because Chunk #42 talks about math passing marks.'\nStep 4: 'The system puts Chunk #42 into the message along with your question about math marks.'\nStep 5: 'The LLM writes: \"According to page 12 of the college rulebook, the passing mark for the math exam is 40 out of 100.\"'",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "llm"
+        },
+        {
+          "id": "J5_jargon_explained",
+          "passed": true,
+          "reason": "Every technical term (RAG, LLM, hallucination, fine-tuning, chunking, embedding, vector database, similarity search, top-k, hybrid search, prompt, context window) is explained in simple words at or right before its first appearance.",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm"
+        },
+        {
+          "id": "J6_language_fit",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 429 from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-3.6-flash, description: Generate content requests per minute limit exceeded on Free Tier. S",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        },
+        {
+          "id": "J7_flow",
+          "passed": true,
+          "reason": "The lesson builds logically from basic concepts to detailed steps and a worked example. Concepts are explained as they are introduced, there are no forward references or contradictions, and the recap accurately summarizes the main points taught in the lesson.",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "llm"
+        },
+        {
+          "id": "J8_standalone",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 429 from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-3.6-flash, description: Generate content requests per minute limit exceeded on Free Tier. S",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "injected_error": null,
+      "changes_requested": [
+        "- [J6_language_fit] Judge error (fail-closed): HTTP 429 from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-3.6-flash, description: Generate content requests per minute limit exceeded on Free Tier. S\n  Evidence: -\n  Fix: -",
+        "- [J8_standalone] Judge error (fail-closed): HTTP 429 from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-3.6-flash, description: Generate content requests per minute limit exceeded on Free Tier. S\n  Evidence: -\n  Fix: -"
+      ],
+      "regressions": [
+        "J5_jargon_explained"
+      ],
+      "passed": false,
+      "score": "12/15",
+      "results": [
+        {
+          "id": "D1_structure",
+          "passed": true,
+          "reason": "All 7 sections present and in order",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "code"
+        },
+        {
+          "id": "D2_length",
+          "passed": true,
+          "reason": "1359 words (allowed 700-2000)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "code"
+        },
+        {
+          "id": "D3_sentence_length",
+          "passed": true,
+          "reason": "Average 10.4 words/sentence (max 16); 0 sentence(s) over 30 words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D4_readability",
+          "passed": true,
+          "reason": "Flesch Reading Ease 73.0 (need >= 55)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D5_hard_words",
+          "passed": true,
+          "reason": "No hard words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D6_glossary_coverage",
+          "passed": true,
+          "reason": "Every jargon term used is in Key words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "code"
+        },
+        {
+          "id": "D7_quiz",
+          "passed": true,
+          "reason": "4 question(s), 4 answer(s) (need >= 3, each answered)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "code"
+        },
+        {
+          "id": "J1_accurate",
+          "passed": true,
+          "reason": "All factual statements in the lesson accurately reflect the reference facts (F1-F23), and none of the misconceptions (M1-M4) are stated as true.",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J2_grounded",
+          "passed": true,
+          "reason": "All names, dates, product names, and technical claims in the lesson are fully supported by the reference facts, and the college rulebook scenarios are clearly presented as illustrative worked examples.",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J3_key_points",
+          "passed": true,
+          "reason": "The lesson covers all seven required key points clearly and thoroughly.",
+          "evidence": "(a) Definition/acronym: 'RAG stands for Retrieval-Augmented Generation.'\n(b) Knowledge limits: 'Cut-off date: An LLM only knows information up to the day its training stopped... Private information: An LLM has not seen private files.'\n(c) Hallucination: 'Hallucination: Sometimes an LLM makes up answers that sound confident but are wrong.'\n(d) Why RAG vs retraining: 'Updating documents for RAG is much faster and cheaper than retraining the AI model.'\n(e) Steps: 'Step 1: Chunk... Step 2: Embed... Step 3: Store... Step 4: Retrieve... Step 5: Augment... Step 6: Generate'\n(f) Weights: 'RAG does not change the model's internal weights.'\n(g) Reduces but does not remove errors: 'RAG reduces hallucinations, but it does not completely remove them.'",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "llm"
+        },
+        {
+          "id": "J4_teaches_by_example",
+          "passed": true,
+          "reason": "The lesson uses a relatable example (a 50-page college exam rulebook PDF and asking about math exam passing marks) and walks it explicitly through all 6 steps of the RAG process.",
+          "evidence": "Let us take one example. Imagine your college has a new 50-page PDF rulebook for exams. You want to ask an AI chatbot: 'What is the passing mark for the math exam?'",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "llm"
+        },
+        {
+          "id": "J5_jargon_explained",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 429 from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-3.6-flash, description: Generate content requests per minute limit exceeded on Free Tier. S",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm"
+        },
+        {
+          "id": "J6_language_fit",
+          "passed": false,
+          "reason": "The lesson uses the English idiom 'Garbage in, garbage out', which can confuse a learner from a non-English-medium background.",
+          "evidence": "* **Garbage in, garbage out:** If search finds the wrong chunk, the final answer will be wrong.",
+          "fix": "Replace the idiom 'Garbage in, garbage out' with a simple descriptive heading, such as 'Wrong search leads to wrong answers:'.",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        },
+        {
+          "id": "J7_flow",
+          "passed": true,
+          "reason": "The lesson flows logically from basic concepts to detailed technical steps, defines all new terms before or when using them, contains no internal contradictions, and features an accurate recap.",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "llm"
+        },
+        {
+          "id": "J8_standalone",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 429 from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-3.6-flash, description: Generate content requests per minute limit exceeded on Free Tier. S",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "injected_error": null,
+      "changes_requested": [
+        "- [J5_jargon_explained] Judge error (fail-closed): HTTP 429 from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-3.6-flash, description: Generate content requests per minute limit exceeded on Free Tier. S\n  Evidence: -\n  Fix: -",
+        "- [J6_language_fit] The lesson uses the English idiom 'Garbage in, garbage out', which can confuse a learner from a non-English-medium background.\n  Evidence: * **Garbage in, garbage out:** If search finds the wrong chunk, the final answer will be wrong.\n  Fix: Replace the idiom 'Garbage in, garbage out' with a simple descriptive heading, such as 'Wrong search leads to wrong answers:'.",
+        "- [J8_standalone] Judge error (fail-closed): HTTP 429 from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-3.6-flash, description: Generate content requests per minute limit exceeded on Free Tier. S\n  Evidence: -\n  Fix: -"
+      ],
+      "regressions": [
+        "J2_grounded",
+        "J7_flow"
+      ],
+      "passed": false,
+      "score": "10/15",
+      "results": [
+        {
+          "id": "D1_structure",
+          "passed": true,
+          "reason": "All 7 sections present and in order",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "code"
+        },
+        {
+          "id": "D2_length",
+          "passed": true,
+          "reason": "1376 words (allowed 700-2000)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "code"
+        },
+        {
+          "id": "D3_sentence_length",
+          "passed": true,
+          "reason": "Average 10.5 words/sentence (max 16); 0 sentence(s) over 30 words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D4_readability",
+          "passed": true,
+          "reason": "Flesch Reading Ease 73.1 (need >= 55)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D5_hard_words",
+          "passed": true,
+          "reason": "No hard words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D6_glossary_coverage",
+          "passed": true,
+          "reason": "Every jargon term used is in Key words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "code"
+        },
+        {
+          "id": "D7_quiz",
+          "passed": true,
+          "reason": "4 question(s), 4 answer(s) (need >= 3, each answered)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "code"
+        },
+        {
+          "id": "J1_accurate",
+          "passed": true,
+          "reason": "All factual statements in the lesson accurately reflect the reference facts, and all misconceptions (M1-M4) are correctly identified as false or avoided.",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J2_grounded",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 429 from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-3.6-flash, description: Generate content requests per minute limit exceeded on Free Tier. S",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J3_key_points",
+          "passed": true,
+          "reason": "The lesson covers all seven required key points clearly and thoroughly.",
+          "evidence": "(a) 'RAG stands for Retrieval-Augmented Generation.' (b) 'Cut-off date: An LLM only knows information up to the day its training stopped... Private information: An LLM has not seen private files.' (c) 'Hallucination: Sometimes an LLM makes up answers that sound confident but are wrong.' (d) 'Updating documents for RAG is much faster and cheaper than retraining the AI model.' (e) 'Step 1: Chunk... Step 2: Embed... Step 3: Store... Step 4: Retrieve... Step 5: Augment... Step 6: Generate' (f) 'RAG does not change the model's internal weights.' (g) 'RAG reduces hallucinations, but it does not completely remove them.'",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "llm"
+        },
+        {
+          "id": "J4_teaches_by_example",
+          "passed": true,
+          "reason": "The lesson uses a familiar, everyday example of a college exam rulebook PDF and walks that exact running example through all six steps of the 'How does RAG work?' section.",
+          "evidence": "Let us take one example. Imagine your college has a new 50-page PDF rulebook for exams. You want to ask an AI chatbot: \"What is the passing mark for the math exam?\"\n\n*Example:* The 50-page college rulebook is cut into 100 small chunks.\n*Example:* The paragraph about math exam marks is converted into a list of numbers.\n*Example:* The number list for the math mark chunk is saved inside a vector database...\n*Example:* The system converts your question (\"What is the passing mark for the math exam?\") into numbers. It finds Chunk #42 about math exam passing marks.\n*Example:* The system puts Chunk #42 into the prompt along with your question about math marks.\n*Example:* The LLM reads Chunk #42 and writes: \"The passing mark for the math exam is 40 out of 100.\"",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "llm"
+        },
+        {
+          "id": "J5_jargon_explained",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 429 from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-3.6-flash, description: Generate content requests per minute limit exceeded on Free Tier. S",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm"
+        },
+        {
+          "id": "J6_language_fit",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 429 from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-3.6-flash, description: Generate content requests per minute limit exceeded on Free Tier. S",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        },
+        {
+          "id": "J7_flow",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 429 from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-3.6-flash, description: Generate content requests per minute limit exceeded on Free Tier. S",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "llm"
+        },
+        {
+          "id": "J8_standalone",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 429 from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash, description: Generate content requests per day limit exceeded on Free Tier. See",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        }
+      ]
+    }
+  ]
+}

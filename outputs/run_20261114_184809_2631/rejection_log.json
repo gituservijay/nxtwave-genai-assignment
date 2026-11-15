@@ -1,0 +1,466 @@
+{
+  "run_id": "run_20261114_184809_2631",
+  "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+  "status": "NEEDS_HUMAN_REVIEW",
+  "final_attempt": 3,
+  "max_retries": 2,
+  "generator_model": "gemini:gemini-3.5-flash-lite",
+  "judge_model": "openai_compat:openai/gpt-oss-120b",
+  "llm_calls": 27,
+  "learned_rules_used": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "injected_error": null,
+      "changes_requested": [],
+      "regressions": [],
+      "passed": false,
+      "score": "7/15",
+      "results": [
+        {
+          "id": "D1_structure",
+          "passed": true,
+          "reason": "All 7 sections present and in order",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "code"
+        },
+        {
+          "id": "D2_length",
+          "passed": true,
+          "reason": "1193 words (allowed 700-2000)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "code"
+        },
+        {
+          "id": "D3_sentence_length",
+          "passed": true,
+          "reason": "Average 11.3 words/sentence (max 16); 0 sentence(s) over 30 words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D4_readability",
+          "passed": true,
+          "reason": "Flesch Reading Ease 69.4 (need >= 55)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D5_hard_words",
+          "passed": true,
+          "reason": "No hard words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D6_glossary_coverage",
+          "passed": true,
+          "reason": "Every jargon term used is in Key words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "code"
+        },
+        {
+          "id": "D7_quiz",
+          "passed": true,
+          "reason": "4 question(s), 4 answer(s) (need >= 3, each answered)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "code"
+        },
+        {
+          "id": "J1_accurate",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J2_grounded",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J3_key_points",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "llm"
+        },
+        {
+          "id": "J4_teaches_by_example",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "llm"
+        },
+        {
+          "id": "J5_jargon_explained",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm"
+        },
+        {
+          "id": "J6_language_fit",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        },
+        {
+          "id": "J7_flow",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "llm"
+        },
+        {
+          "id": "J8_standalone",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "injected_error": null,
+      "changes_requested": [
+        "- [J1_accurate] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -",
+        "- [J2_grounded] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -",
+        "- [J3_key_points] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -",
+        "- [J4_teaches_by_example] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -",
+        "- [J5_jargon_explained] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -",
+        "- [J6_language_fit] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -",
+        "- [J7_flow] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -",
+        "- [J8_standalone] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -"
+      ],
+      "regressions": [],
+      "passed": false,
+      "score": "7/15",
+      "results": [
+        {
+          "id": "D1_structure",
+          "passed": true,
+          "reason": "All 7 sections present and in order",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "code"
+        },
+        {
+          "id": "D2_length",
+          "passed": true,
+          "reason": "1192 words (allowed 700-2000)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "code"
+        },
+        {
+          "id": "D3_sentence_length",
+          "passed": true,
+          "reason": "Average 11.3 words/sentence (max 16); 0 sentence(s) over 30 words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D4_readability",
+          "passed": true,
+          "reason": "Flesch Reading Ease 69.4 (need >= 55)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D5_hard_words",
+          "passed": true,
+          "reason": "No hard words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D6_glossary_coverage",
+          "passed": true,
+          "reason": "Every jargon term used is in Key words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "code"
+        },
+        {
+          "id": "D7_quiz",
+          "passed": true,
+          "reason": "4 question(s), 4 answer(s) (need >= 3, each answered)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "code"
+        },
+        {
+          "id": "J1_accurate",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J2_grounded",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J3_key_points",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "llm"
+        },
+        {
+          "id": "J4_teaches_by_example",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "llm"
+        },
+        {
+          "id": "J5_jargon_explained",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm"
+        },
+        {
+          "id": "J6_language_fit",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        },
+        {
+          "id": "J7_flow",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "llm"
+        },
+        {
+          "id": "J8_standalone",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "injected_error": null,
+      "changes_requested": [
+        "- [J1_accurate] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -",
+        "- [J2_grounded] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -",
+        "- [J3_key_points] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -",
+        "- [J4_teaches_by_example] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -",
+        "- [J5_jargon_explained] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -",
+        "- [J6_language_fit] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -",
+        "- [J7_flow] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -",
+        "- [J8_standalone] Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n\n  Evidence: -\n  Fix: -"
+      ],
+      "regressions": [],
+      "passed": false,
+      "score": "7/15",
+      "results": [
+        {
+          "id": "D1_structure",
+          "passed": true,
+          "reason": "All 7 sections present and in order",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "code"
+        },
+        {
+          "id": "D2_length",
+          "passed": true,
+          "reason": "1192 words (allowed 700-2000)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "code"
+        },
+        {
+          "id": "D3_sentence_length",
+          "passed": true,
+          "reason": "Average 11.3 words/sentence (max 16); 0 sentence(s) over 30 words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D4_readability",
+          "passed": true,
+          "reason": "Flesch Reading Ease 69.4 (need >= 55)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D5_hard_words",
+          "passed": true,
+          "reason": "No hard words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D6_glossary_coverage",
+          "passed": true,
+          "reason": "Every jargon term used is in Key words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "code"
+        },
+        {
+          "id": "D7_quiz",
+          "passed": true,
+          "reason": "4 question(s), 4 answer(s) (need >= 3, each answered)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "code"
+        },
+        {
+          "id": "J1_accurate",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J2_grounded",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J3_key_points",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "llm"
+        },
+        {
+          "id": "J4_teaches_by_example",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "llm"
+        },
+        {
+          "id": "J5_jargon_explained",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm"
+        },
+        {
+          "id": "J6_language_fit",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        },
+        {
+          "id": "J7_flow",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "llm"
+        },
+        {
+          "id": "J8_standalone",
+          "passed": false,
+          "reason": "Judge error (fail-closed): HTTP 403 from https://api.groq.com/openai/v1/chat/completions: error code: 1010\n",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        }
+      ]
+    }
+  ]
+}

@@ -19,6 +19,10 @@ WRITING RULES (follow every rule)
 6. Be warm and encouraging. Speak to the learner as "you".
 7. Use ONLY the facts in the REFERENCE FACTS. Do not add names, dates, numbers or tools that are not there. Analogies are fine but present them as analogies ("It is like...").
 8. Never state any of the MISCONCEPTIONS as true. It is good to warn the learner about them.
+9. In the title and the intro, write the full name "Retrieval-Augmented Generation (RAG)" and say in a few
+   plain words what it means. Do not use "LLM", "AI model" or any other technical word in the title or intro
+   unless you explain it in that same sentence.
+10. Use only plain hyphens (-) and straight quotes; no special Unicode punctuation.
 
 FORMAT (Markdown). Use exactly these H2 headings, in this order:
 # <Lesson title>
@@ -55,6 +59,8 @@ REVISE_SYSTEM = GEN_SYSTEM + """
 YOU ARE NOW REVISING A DRAFT THAT FAILED REVIEW.
 - Fix every failed check listed below. Each one comes with evidence and a suggested fix.
 - Change only what is needed. Keep everything that already passed (do not break passing checks).
+- Every sentence you add or change must be under 20 words. Split long sentences instead of joining them.
+- If a technical term is used before it is explained, add a short plain explanation at its FIRST use in the body.
 - Output the complete revised lesson in Markdown, nothing else."""
 
 REVISE_USER = """TOPIC: {topic}
@@ -103,10 +109,10 @@ Judge ONLY this check. Return the JSON."""
 # Extra, check-specific instructions so the judge reasons step-by-step in a fixed way.
 JUDGE_HINTS = {
     "J1_accurate": "Method: list every factual statement about RAG/LLMs in the lesson. For each, find the fact ID it matches. If ANY statement contradicts a fact or states a misconception (M1-M4) as true, FAIL and quote it.",
-    "J2_grounded": "Method: find every specific claim (person, organisation, year, number, tool or product name, technical claim). If any is NOT supported by the reference facts, FAIL and quote it. Clearly-marked analogies and the made-up running example are allowed.",
+    "J2_grounded": "Method: find every specific claim about RAG, LLMs, AI or the real world (person, organisation, year, number, tool or product name, technical claim). If any is NOT supported by the reference facts, FAIL and quote it. NOT claims (always allowed): analogies, and every detail inside the made-up running example (the student's name, their college, its rules, fees, dates or page numbers) - these are illustrations, not facts about RAG. Only fail with an exact quote of a real-world claim.",
     "J3_key_points": "Method: go through items (a) to (g) one by one and quote where each is covered. If ANY item is missing, FAIL and say which.",
     "J4_teaches_by_example": "Method: name the running example. Check it appears in EVERY step of 'How does RAG work?'. If a step has no example, or the example would be unfamiliar to an Indian student, FAIL.",
-    "J5_jargon_explained": "Method: list each technical term in order of first appearance. For each, check a simple explanation appears at or before first use (the Key words section at the end does NOT count). If any term is used before it is explained, FAIL and quote it.",
+    "J5_jargon_explained": "Method: list each technical term in order of first appearance in the body text. For each, check a simple explanation appears at or before first use, or in the very next sentence (the Key words section at the end does NOT count). Section headings that only name the topic being explained (e.g. 'What is RAG?') are not uses. A term that appears ONLY in the Key words section (with its meaning there) and nowhere in the body is fine - do not fail for it. If any term is used before it is explained, FAIL and quote the exact sentence and the term.",
     "J6_language_fit": "Method: look for idioms, slang, rare words, long complex sentences, and Western cultural references. Any clear example = FAIL.",
     "J7_flow": "Method: check each section only uses ideas already introduced, no contradictions between sections, and the recap matches the lesson.",
     "J8_standalone": "Method: look for anything that assumes prior knowledge of programming, ML, neural networks, or maths beyond school. Any such assumption without explanation = FAIL.",

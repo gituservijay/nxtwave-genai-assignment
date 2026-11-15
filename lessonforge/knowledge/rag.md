@@ -24,10 +24,10 @@ can cite which fact a claim matches or contradicts.
 - F13: Retrieval can also use keyword search, or a mix of keyword and meaning-based search (hybrid search).
 - F14: Step 4 – Augment: the retrieved chunks are added to the prompt together with the user's question, with an instruction such as "answer using only this context".
 - F15: Step 5 – Generate: the LLM reads the question plus the retrieved context and writes the answer.
-- F16: RAG does NOT change the model's internal weights. The model is not retrained; it only receives extra text in its prompt at the time of the question.
+- F16: RAG does NOT change the model's weights. (Weights = the millions of internal number settings a model learns during training; plain-English: its "memory settings".) The model is not retrained; it only receives extra text in its prompt at the time of the question. When teaching this, explain "weights" in plain words in the same sentence, or just say "internal settings".
 
 ## Limits (to stay honest)
-- F17: If retrieval finds the wrong or incomplete chunks, the answer can still be wrong ("garbage in, garbage out").
+- F17: If retrieval finds the wrong or incomplete chunks, the answer can still be wrong. (When teaching this, say it plainly; avoid idioms.)
 - F18: The LLM can only read a limited amount of text at once (its context window), so only the most relevant chunks are sent.
 - F19: RAG reduces hallucination but does not guarantee correct answers; answers should still be checked when it matters.
 

@@ -42,6 +42,8 @@ The final lesson goes to `outputs/latest/lesson.md` and the rejection log to `ou
 - **Groq:** free key at https://console.groq.com/keys. Set `OPENAI_COMPAT_API_KEY`.
 - Anthropic and OpenAI keys work too.
 
+**Free-tier tip:** Gemini's free tier allows only ~20 requests/day per model, and one run needs 10–29 calls. The setup that works on free keys is Gemini as the writer and Groq (`openai/gpt-oss-120b`) as the judge (see `.env.example`). It also reduces self-grading bias.
+
 **Recommended:** use a *different* model as the judge to reduce self-grading bias. See `LF_JUDGE_PROVIDER` in `.env.example`.
 
 ---
@@ -58,7 +60,7 @@ The final lesson goes to `outputs/latest/lesson.md` and the rejection log to `ou
 | `python -m lessonforge add-check "Mentions an Indian example in every section"` | A human adds a new pass/fail rubric check (rubric evolution) |
 | `python -m lessonforge stats` | First-try score per run, to see whether learning helps |
 | `python -m lessonforge reset-memory` | Clears memory |
-| `python -m pytest -q` | 13 offline tests: loop, termination, error catching, memory, fail-closed judge |
+| `python -m pytest -q` | 16 offline tests: loop, termination, error catching, memory, fail-closed judge, retries, provider fallback |
 
 Exit code `0` means shipped. Exit code `2` means not shipped (useful in CI).
 
@@ -93,6 +95,25 @@ memory/memory.json       persists across runs: failure stats, learned rules, hum
 | `lessonforge/inject.py` | Deliberate-error injection for the demo |
 | `lessonforge/llm.py` | Dependency-free client for Anthropic, OpenAI, Gemini and any OpenAI-compatible API, with retry and backoff |
 | `lessonforge/mock.py` | Offline test double (no API key needed) |
+
+## When a run ends in NEEDS_HUMAN_REVIEW
+That's the fail-safe working: the system won't ship a lesson that fails any check. The human-in-the-loop path is:
+1. Open `outputs/latest/rejection_log.md` to see exactly which check failed, with the quoted evidence.
+2. Fix those lines in `outputs/latest/lesson.md` (remove the "NOT SHIPPED" banner).
+3. Re-check the edited lesson against all 15 checks: `python -m lessonforge eval outputs/latest/lesson.md`
+4. Optionally run `python -m lessonforge feedback "..."` so the writer learns from the fix next time.
+
+## Free-tier setup that works (tested)
+```
+GEMINI_API_KEY=...                       # writer
+LF_GEN_PROVIDER=gemini
+LF_GEN_MODEL=gemini-3.6-flash            # or gemini-3.5-flash-lite (separate daily quota)
+OPENAI_COMPAT_API_KEY=gsk_...            # Groq, judge
+LF_JUDGE_PROVIDER=openai_compat
+LF_JUDGE_MODEL=openai/gpt-oss-120b       # or openai/gpt-oss-20b / qwen/qwen3.8-27b (each has its own daily quota)
+LF_JUDGE_WORKERS=1
+```
+A run takes 10–20 minutes on free tiers because of rate-limit backoff.
 
 ## Adding a new topic
 Add `lessonforge/knowledge/<keyword>.md` (the keyword must appear as a word in the topic) with reference facts and misconceptions, then run `python -m lessonforge run --topic "<topic>"`. The rubric's topic-specific check (`J3_key_points`) lives in `rubric.json`.

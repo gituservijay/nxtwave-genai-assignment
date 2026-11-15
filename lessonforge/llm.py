@@ -35,7 +35,7 @@ class LLMConfig:
 DEFAULT_MODELS = {
     "anthropic": "claude-sonnet-4-5",
     "openai": "gpt-4.1-mini",
-    "gemini": "gemini-2.5-flash",
+    "gemini": "gemini-3.6-flash",
     "openai_compat": "llama-3.3-70b-versatile",  # Groq default; override with LF_*_MODEL
     "mock": "mock",
 }
@@ -53,23 +53,37 @@ def autodetect_provider() -> str:
     return "mock"
 
 
-def _post(url: str, payload: dict, headers: dict, retries: int = 3) -> dict:
+def _post(url: str, payload: dict, headers: dict, retries: int = 6) -> dict:
+    """POST JSON. Free tiers rate-limit hard (HTTP 429), so back off patiently:
+    honor Retry-After when given, else wait 5s, 10s, 20s, 40s, 60s."""
     data = json.dumps(payload).encode()
     last = None
     for attempt in range(retries):
-        req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json", **headers})
+        req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json", "Accept": "application/json",
+                                                       # Some APIs sit behind Cloudflare, which blocks the default
+                                                       # "Python-urllib" user agent (HTTP 403, error code 1010).
+                                                       "User-Agent": "lessonforge/1.0 (+https://github.com)", **headers})
         try:
             with urllib.request.urlopen(req, timeout=180) as r:
                 return json.loads(r.read().decode())
         except urllib.error.HTTPError as e:
             body = e.read().decode(errors="ignore")[:500]
-            last = LLMError(f"HTTP {e.code} from {url}: {body}")
-            if e.code in (429, 500, 502, 503, 529):  # transient -> back off and retry
-                time.sleep(2 ** attempt * 3)
+            last = LLMError(f"HTTP {e.code} from {url.split('?')[0]}: {body}")
+            low = body.lower()
+            if e.code == 429 and ("per day" in low or "tpd" in low or "rpd" in low or "quota" in low):
+                # A DAILY quota will not recover in seconds - fail fast instead of waiting for hours.
+                raise LLMError(f"daily quota exhausted for this model: {body[:200]}")
+            if e.code in (429, 500, 502, 503, 504, 529) and attempt < retries - 1:
+                wait = min(60, 5 * 2 ** attempt)
+                ra = e.headers.get("Retry-After") if e.headers else None
+                if ra and ra.strip().isdigit():
+                    wait = min(90, int(ra) + 1)
+                print(f"           (rate limited / busy: HTTP {e.code}; waiting {wait}s and retrying)")
+                time.sleep(wait)
                 continue
             raise last
         except urllib.error.URLError as e:
-            last = LLMError(f"Network error calling {url}: {e}")
+            last = LLMError(f"Network error calling {url.split('?')[0]}: {e}")
             time.sleep(2 ** attempt)
     raise last  # type: ignore[misc]
 
@@ -82,7 +96,8 @@ class LLM:
         self.mock_responder = mock_responder
         self.calls = 0
 
-    def call(self, system: str, user: str, *, temperature: float | None = None, tag: str = "") -> str:
+    def call(self, system: str, user: str, *, temperature: float | None = None, tag: str = "",
+             json_mode: bool = False) -> str:
         self.calls += 1
         t = self.cfg.temperature if temperature is None else temperature
         p = self.cfg.provider
@@ -104,20 +119,40 @@ class LLM:
             else:
                 base = os.getenv("OPENAI_COMPAT_BASE_URL", "https://api.groq.com/openai/v1")
                 key = os.environ.get("OPENAI_COMPAT_API_KEY", "none")
-            out = _post(
-                f"{base.rstrip('/')}/chat/completions",
-                {"model": self.cfg.model, "temperature": t, "max_tokens": self.cfg.max_tokens,
-                 "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]},
-                {"Authorization": f"Bearer {key}"},
-            )
-            return out["choices"][0]["message"]["content"]
+            url, hdr = f"{base.rstrip('/')}/chat/completions", {"Authorization": f"Bearer {key}"}
+            payload = {"model": self.cfg.model, "temperature": t, "max_tokens": self.cfg.max_tokens,
+                       "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
+            extras = {}
+            if json_mode:
+                extras["response_format"] = {"type": "json_object"}  # provider-enforced JSON
+            if "qwen" in self.cfg.model.lower():
+                extras["reasoning_format"] = "hidden"  # Groq: drop <think> text from the reply
+            if "gpt-oss" in self.cfg.model or self.cfg.model.startswith(("o1", "o3", "o4")):
+                # Reasoning models spend output tokens "thinking" first. With a small token cap they
+                # can run out before writing the answer (empty reply). Low effort keeps room for it.
+                extras["reasoning_effort"] = "low"
+            try:
+                out = _post(url, {**payload, **extras}, hdr)
+            except LLMError as e:
+                if extras and "HTTP 400" in str(e):  # provider rejected an optional param -> plain request
+                    out = _post(url, payload, hdr)
+                else:
+                    raise
+            choice = out["choices"][0]
+            text = (choice.get("message") or {}).get("content") or ""
+            if not text.strip():
+                raise LLMError(f"empty reply (finish_reason={choice.get('finish_reason')}); "
+                               f"raise LF_{'JUDGE' if t == 0 else 'GEN'}_MAX_TOKENS if this repeats")
+            return text
         if p == "gemini":
             key = os.getenv("GEMINI_API_KEY") or os.environ["GOOGLE_API_KEY"]
             out = _post(
                 f"https://generativelanguage.googleapis.com/v1beta/models/{self.cfg.model}:generateContent",
                 {"systemInstruction": {"parts": [{"text": system}]},
                  "contents": [{"role": "user", "parts": [{"text": user}]}],
-                 "generationConfig": {"temperature": t, "maxOutputTokens": self.cfg.max_tokens}},
+                 # Gemini 3.5+ models reject sampling params (temperature/top_p/top_k), so none are sent.
+                 "generationConfig": {"maxOutputTokens": self.cfg.max_tokens,
+                                      **({"responseMimeType": "application/json"} if json_mode else {})}},
                 {"x-goog-api-key": key},  # header works for both classic "AIza..." and newer "AQ..." keys
             )
             parts = out.get("candidates", [{}])[0].get("content", {}).get("parts", [])
@@ -129,17 +164,17 @@ class LLM:
 
     def call_json(self, system: str, user: str, *, tag: str = "") -> dict:
         """Ask for JSON, parse robustly, retry once with a repair nudge if parsing fails."""
-        raw = self.call(system, user, temperature=0.0, tag=tag)
+        raw = self.call(system, user, temperature=0.0, tag=tag, json_mode=True)
         try:
             return extract_json(raw)
         except ValueError:
             raw = self.call(system, user + "\n\nYour previous reply was not valid JSON. Reply with ONLY the JSON object.",
-                            temperature=0.0, tag=tag)
+                            temperature=0.0, tag=tag, json_mode=True)
             return extract_json(raw)
 
 
 def extract_json(text: str) -> dict:
-    text = text.strip()
+    text = re.sub(r"<think>.*?</think>", "", text or "", flags=re.S).strip()  # reasoning models
     m = re.search(r"```(?:json)?\s*(\{.*\})\s*```", text, re.S)
     if m:
         text = m.group(1)
@@ -156,4 +191,7 @@ def build_llm(role: str, mock_responder=None) -> LLM:
     prov = os.getenv(f"LF_{role.upper()}_PROVIDER") or autodetect_provider()
     model = os.getenv(f"LF_{role.upper()}_MODEL") or DEFAULT_MODELS[prov]
     temp = 0.7 if role == "gen" else 0.0
-    return LLM(LLMConfig(provider=prov, model=model, temperature=temp), mock_responder)
+    # Judges only return a short JSON verdict; a smaller cap keeps each request under
+    # free-tier tokens-per-minute limits (e.g. Groq counts max_tokens toward TPM).
+    max_tok = int(os.getenv(f"LF_{role.upper()}_MAX_TOKENS") or (8192 if role == "gen" else 3000))
+    return LLM(LLMConfig(provider=prov, model=model, temperature=temp, max_tokens=max_tok), mock_responder)

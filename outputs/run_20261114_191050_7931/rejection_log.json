@@ -1,0 +1,462 @@
+{
+  "run_id": "run_20261114_191050_7931",
+  "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+  "status": "NEEDS_HUMAN_REVIEW",
+  "final_attempt": 3,
+  "max_retries": 2,
+  "generator_model": "gemini:gemini-3.5-flash-lite",
+  "judge_model": "openai_compat:openai/gpt-oss-120b",
+  "llm_calls": 30,
+  "learned_rules_used": [
+    "- [J5_jargon_explained] Define every technical acronym or jargon term in plain language immediately upon its first appearance in the text.",
+    "- [D6_glossary_coverage] Ensure all core technical terms used in the text (such as prompt, retrieval, and augment) are explicitly listed in the Key words glossary.",
+    "- [J4_teaches_by_example] Integrate the designated running example character consistently across every single step and phase of the main mechanism explanation."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "injected_error": null,
+      "changes_requested": [],
+      "regressions": [],
+      "passed": false,
+      "score": "11/15",
+      "results": [
+        {
+          "id": "D1_structure",
+          "passed": true,
+          "reason": "All 7 sections present and in order",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "code"
+        },
+        {
+          "id": "D2_length",
+          "passed": true,
+          "reason": "1168 words (allowed 700-2000)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "code"
+        },
+        {
+          "id": "D3_sentence_length",
+          "passed": false,
+          "reason": "Average 15.5 words/sentence (max 16); 1 sentence(s) over 30 words",
+          "evidence": "Step 5: The model reads the question and the context, and generates the final answer: \"According to your library rulebook, the late fee is ten rupees per day after the due date.\"",
+          "fix": "Split every long sentence into two or three short ones. One idea per sentence.",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D4_readability",
+          "passed": true,
+          "reason": "Flesch Reading Ease 61.5 (need >= 55)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D5_hard_words",
+          "passed": true,
+          "reason": "No hard words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D6_glossary_coverage",
+          "passed": false,
+          "reason": "Used but not in Key words: retrieval, augment",
+          "evidence": "",
+          "fix": "Add simple one-line meanings for: retrieval, augment in the Key words section.",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "code"
+        },
+        {
+          "id": "D7_quiz",
+          "passed": true,
+          "reason": "4 question(s), 4 answer(s) (need >= 3, each answered)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "code"
+        },
+        {
+          "id": "J1_accurate",
+          "passed": true,
+          "reason": "All statements align with the reference facts and no misconception (M1‑M4) is presented as true.",
+          "evidence": "\"RAG stands for Retrieval‑Augmented Generation.\"; \"Do not think that RAG retrains the model on your documents.\"; \"RAG does not mean the model searches the whole internet by itself.\"",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J2_grounded",
+          "passed": false,
+          "reason": "The lesson mentions a vector database named \"FAIPS\", which is not listed in the reference facts (the correct name is FAISS).",
+          "evidence": "\"Examples of this database include FAIPS, Chroma, and Pinecone.\"",
+          "fix": "Replace \"FAIPS\" with the correct product name \"FAISS\" as given in the reference facts.",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J3_key_points",
+          "passed": true,
+          "reason": "All required points (a)–(g) are present in the lesson.",
+          "evidence": "\"RAG stands for Retrieval-Augmented Generation.\" (a) | \"A large language model learns from data up to a cut-off date... also... has not seen private documents\" (b) | \"hallucinations... Giving the model relevant source text reduces hallucinations, but it does not fully remove them\" (c) | \"RAG lets an application use new or private information without retraining the model. Updating your document collection is much cheaper and faster than retraining\" (d) | Steps listed: \"1. Chunk... 2. Embed... These embeddings are stored... 3. Retrieve... 4. Augment... 5. Generate\" (e) | \"RAG does not change the internal weights\" (f) | \"RAG reduces hallucinations but does not fully remove them\" (g)",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "llm"
+        },
+        {
+          "id": "J4_teaches_by_example",
+          "passed": true,
+          "reason": "The lesson names a concrete, everyday example (Priya, a college student using her library fee rulebook) and includes Priya in every step of the RAG pipeline.",
+          "evidence": "\"For Priya, the college library rulebook is split into small text chunks.\" (Step 1) ... \"For Priya, the model reads her question and the library fee rules, and then generates a clear, correct answer\" (Step 5)",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "llm"
+        },
+        {
+          "id": "J5_jargon_explained",
+          "passed": false,
+          "reason": "The term \"similarity search\" is used before it is explained.",
+          "evidence": "\"These embeddings are stored in a database built for fast similarity search, often called a vector database.\"",
+          "fix": "Add a simple explanation of \"similarity search\" (e.g., \"a similarity search finds items that are close in meaning\") before or immediately after its first appearance.",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm"
+        },
+        {
+          "id": "J6_language_fit",
+          "passed": true,
+          "reason": "The lesson uses short, simple sentences, common everyday words, and avoids idioms, slang, or Western cultural references, maintaining a friendly tone.",
+          "evidence": "\"RAG stands for Retrieval-Augmented Generation. It combines a search step with a large language model, which is a computer program that understands and writes human text.\"",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        },
+        {
+          "id": "J7_flow",
+          "passed": true,
+          "reason": "All sections logically follow each other, introduce concepts before use, contain no contradictions, and the recap accurately reflects the content taught.",
+          "evidence": "\"RAG does not change the internal weights...\" (consistent throughout) and Recap bullet \"RAG reduces hallucinations and lets systems show their sources, but it does not fully guarantee correct answers\" matches the earlier explanation.",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "llm"
+        },
+        {
+          "id": "J8_standalone",
+          "passed": true,
+          "reason": "The lesson explains all required concepts (LLM, embeddings, vector database, etc.) in plain language without assuming prior programming or ML knowledge.",
+          "evidence": "\"RAG stands for Retrieval-Augmented Generation. It combines a search step with a large language model, which is a computer program that understands and writes human text.\" \"Each chunk is converted into an embedding, which is a list of numbers that represents the meaning of the text.\"",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "injected_error": null,
+      "changes_requested": [
+        "- [D3_sentence_length] Average 15.5 words/sentence (max 16); 1 sentence(s) over 30 words\n  Evidence: Step 5: The model reads the question and the context, and generates the final answer: \"According to your library rulebook, the late fee is ten rupees per day after the due date.\"\n  Fix: Split every long sentence into two or three short ones. One idea per sentence.",
+        "- [D6_glossary_coverage] Used but not in Key words: retrieval, augment\n  Evidence: -\n  Fix: Add simple one-line meanings for: retrieval, augment in the Key words section.",
+        "- [J2_grounded] The lesson mentions a vector database named \"FAIPS\", which is not listed in the reference facts (the correct name is FAISS).\n  Evidence: \"Examples of this database include FAIPS, Chroma, and Pinecone.\"\n  Fix: Replace \"FAIPS\" with the correct product name \"FAISS\" as given in the reference facts.",
+        "- [J5_jargon_explained] The term \"similarity search\" is used before it is explained.\n  Evidence: \"These embeddings are stored in a database built for fast similarity search, often called a vector database.\"\n  Fix: Add a simple explanation of \"similarity search\" (e.g., \"a similarity search finds items that are close in meaning\") before or immediately after its first appearance."
+      ],
+      "regressions": [],
+      "passed": false,
+      "score": "13/15",
+      "results": [
+        {
+          "id": "D1_structure",
+          "passed": true,
+          "reason": "All 7 sections present and in order",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "code"
+        },
+        {
+          "id": "D2_length",
+          "passed": true,
+          "reason": "1248 words (allowed 700-2000)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "code"
+        },
+        {
+          "id": "D3_sentence_length",
+          "passed": true,
+          "reason": "Average 15.0 words/sentence (max 16); 0 sentence(s) over 30 words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D4_readability",
+          "passed": true,
+          "reason": "Flesch Reading Ease 62.8 (need >= 55)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D5_hard_words",
+          "passed": true,
+          "reason": "No hard words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D6_glossary_coverage",
+          "passed": true,
+          "reason": "Every jargon term used is in Key words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "code"
+        },
+        {
+          "id": "D7_quiz",
+          "passed": true,
+          "reason": "4 question(s), 4 answer(s) (need >= 3, each answered)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "code"
+        },
+        {
+          "id": "J1_accurate",
+          "passed": true,
+          "reason": "All statements align with the reference facts and no misconception is presented as true.",
+          "evidence": "\"Do not think that RAG retrains the model on your documents.\" (addresses M1) and \"RAG does not change the internal weights, which are the internal numbers the model uses to make decisions.\" (matches F16)",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J2_grounded",
+          "passed": false,
+          "reason": "The lesson makes a factual claim not covered by the reference facts.",
+          "evidence": "\"RAG does not search the whole internet by itself unless connected to web search.\"",
+          "fix": "Remove the unsupported clause \"unless connected to web search\" or rephrase to match the reference fact that RAG does not search the whole internet by itself.",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J3_key_points",
+          "passed": true,
+          "reason": "All required items (a)–(g) are explicitly covered in the lesson.",
+          "evidence": "\"RAG stands for Retrieval-Augmented Generation.\"; \"A large language model learns from data up to a cut-off date. It does not automatically know events or documents created after that time.\"; \"Sometimes models make mistakes called hallucinations... Giving the model relevant source text reduces hallucinations, but it does not fully remove them.\"; \"RAG lets an application use new or private information without retraining the model. Updating your document collection is much cheaper and faster than retraining.\"; \"1. Chunk ... 2. Embed ... These embeddings are stored in a database ... 3. Retrieve ... 4. Augment ... 5. Generate ...\"; \"RAG does not change the internal weights... The model does not change its internal weights during this time.\"; \"RAG reduces hallucinations but does not fully remove them.\"",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "llm"
+        },
+        {
+          "id": "J4_teaches_by_example",
+          "passed": true,
+          "reason": "The lesson names a concrete Indian student example (Priya) and includes her in every step of the RAG pipeline.",
+          "evidence": "\"For Priya, the college library rulebook is split into small text chunks.\" (Step 1) ... \"When Priya asks a question about library fine fees...\" (Step 3) ... \"For Priya, the system takes her question...\" (Step 4) ... \"For Priya, the model reads her question and the library fee rules...\" (Step 5)",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "llm"
+        },
+        {
+          "id": "J5_jargon_explained",
+          "passed": false,
+          "reason": "The term \"large language model\" is used before it is explained.",
+          "evidence": "\"In this lesson, you will learn how to help a **large language model** answer questions...\" (first use) – the explanation \"large language model, which is a computer program that understands and writes human text\" appears later, not at or before the first use.",
+          "fix": "Introduce a simple definition of each technical term (e.g., \"large language model – a computer program that understands and writes human text\") before its first occurrence in the lesson.",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm"
+        },
+        {
+          "id": "J6_language_fit",
+          "passed": true,
+          "reason": "The lesson uses short, straightforward sentences, common everyday words, avoids idioms, slang, and Western cultural references, and maintains a friendly tone.",
+          "evidence": "\"RAG stands for Retrieval-Augmented Generation. It combines a search step with a large language model, which is a computer program that understands and writes human text.\"",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        },
+        {
+          "id": "J7_flow",
+          "passed": true,
+          "reason": "All sections introduce concepts before they are used, there are no contradictions, and the recap accurately reflects the material presented.",
+          "evidence": "\"RAG does not change the internal weights...\" (intro) and \"The model does not change its internal weights during this time.\" (Generate step); Recap bullet: \"RAG reduces hallucinations and lets systems show their sources, but it does not fully guarantee correct answers.\" matches earlier statements about hallucinations.",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "llm"
+        },
+        {
+          "id": "J8_standalone",
+          "passed": true,
+          "reason": "The lesson explains all required concepts in plain language and defines terms, without assuming prior programming, advanced math, or ML knowledge.",
+          "evidence": "\"RAG stands for Retrieval-Augmented Generation. It combines a search step with a large language model, which is a computer program that understands and writes human text.\"; \"Embedding – a list of numbers that represents the meaning of the text.\"; \"Large language model (LLM) - A computer program that understands and writes human text.\"",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "injected_error": null,
+      "changes_requested": [
+        "- [J2_grounded] The lesson makes a factual claim not covered by the reference facts.\n  Evidence: \"RAG does not search the whole internet by itself unless connected to web search.\"\n  Fix: Remove the unsupported clause \"unless connected to web search\" or rephrase to match the reference fact that RAG does not search the whole internet by itself.",
+        "- [J5_jargon_explained] The term \"large language model\" is used before it is explained.\n  Evidence: \"In this lesson, you will learn how to help a **large language model** answer questions...\" (first use) – the explanation \"large language model, which is a computer program that understands and writes human text\" appears later, not at or before the first use.\n  Fix: Introduce a simple definition of each technical term (e.g., \"large language model – a computer program that understands and writes human text\") before its first occurrence in the lesson."
+      ],
+      "regressions": [
+        "D3_sentence_length"
+      ],
+      "passed": false,
+      "score": "13/15",
+      "results": [
+        {
+          "id": "D1_structure",
+          "passed": true,
+          "reason": "All 7 sections present and in order",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "code"
+        },
+        {
+          "id": "D2_length",
+          "passed": true,
+          "reason": "1253 words (allowed 700-2000)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "code"
+        },
+        {
+          "id": "D3_sentence_length",
+          "passed": false,
+          "reason": "Average 15.0 words/sentence (max 16); 1 sentence(s) over 30 words",
+          "evidence": "In this lesson, you will learn how to help a large language model, which is a computer program that understands and writes human text, answer questions using new or private documents without changing the model itself.",
+          "fix": "Split every long sentence into two or three short ones. One idea per sentence.",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D4_readability",
+          "passed": true,
+          "reason": "Flesch Reading Ease 62.5 (need >= 55)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D5_hard_words",
+          "passed": true,
+          "reason": "No hard words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D6_glossary_coverage",
+          "passed": true,
+          "reason": "Every jargon term used is in Key words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "code"
+        },
+        {
+          "id": "D7_quiz",
+          "passed": true,
+          "reason": "4 question(s), 4 answer(s) (need >= 3, each answered)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "code"
+        },
+        {
+          "id": "J1_accurate",
+          "passed": true,
+          "reason": "All statements align with the reference facts and no listed misconception (M1‑M4) is presented as true.",
+          "evidence": "\"Do not think that RAG retrains the model on your documents.\" \"RAG does not change the internal weights\" \"RAG does not mean the model searches the whole internet by itself.\" \"Embedding ... a list of numbers that represents the meaning of the text. Do not think embeddings are summaries written in words.\"",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J2_grounded",
+          "passed": true,
+          "reason": "All specific factual claims are directly supported by the reference facts.",
+          "evidence": "\"RAG stands for Retrieval-Augmented Generation.\" (matches F1) and \"Patrick Lewis and colleagues at Facebook AI Research introduced this idea in a 2020 research paper.\" (matches F3) and \"Embeddings are stored in a vector database (examples: FAISS, Chroma, Pinecone).\" (matches F11).",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J3_key_points",
+          "passed": true,
+          "reason": "All required points (a)–(g) are present in the lesson.",
+          "evidence": "\"RAG stands for Retrieval-Augmented Generation.\"; \"A large language model learns from data up to a cut-off date... the model has not seen private documents...\"; \"Sometimes models make mistakes called hallucinations... Giving the model relevant source text reduces hallucinations, but it does not fully remove them.\"; \"RAG lets an application use new or private information without retraining the model. Updating your document collection is much cheaper and faster than retraining.\"; \"1. Chunk ... 2. Embed ... These embeddings are stored in a database... 3. Retrieve ... 4. Augment ... 5. Generate ...\"; \"RAG does not change the internal weights...\"; \"RAG reduces hallucinations but does not fully remove them.\"",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "llm"
+        },
+        {
+          "id": "J4_teaches_by_example",
+          "passed": true,
+          "reason": "The lesson names a concrete Indian example (Priya and her college library fee rulebook) and includes Priya in every step of the 'How does RAG work?' pipeline.",
+          "evidence": "\"For Priya, the college library rulebook is split into small text chunks.\" (Step 1) ... \"For Priya, the model reads her question and the library fee rules...\" (Step 5)",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "llm"
+        },
+        {
+          "id": "J5_jargon_explained",
+          "passed": false,
+          "reason": "The term \"Fine-tuning\" is first introduced in the Key words section without any prior explanation in the main body.",
+          "evidence": "\"- **Fine-tuning** - Changing a model's weights by training it further on examples.\"",
+          "fix": "Introduce a simple explanation of \"Fine-tuning\" in the main lesson text before it appears in the Key words list, e.g., \"Fine-tuning means changing a model's internal weights by training it further on example data.\"",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm"
+        },
+        {
+          "id": "J6_language_fit",
+          "passed": true,
+          "reason": "The lesson uses short, simple sentences, common everyday words, avoids idioms, slang, and Western cultural references, and maintains a friendly tone.",
+          "evidence": "\"RAG stands for Retrieval-Augmented Generation. It combines a search step with a large language model, which is a computer program that understands and writes human text.\"",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        },
+        {
+          "id": "J7_flow",
+          "passed": true,
+          "reason": "All sections introduce concepts before they are used, there are no contradictions, and the recap accurately restates the taught material.",
+          "evidence": "\"Do not think that RAG retrains the model on your documents... RAG does not change the internal weights...\" (section What is RAG) and \"RAG reduces hallucinations and lets systems show their sources, but it does not fully guarantee correct answers.\" (Recap)",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "llm"
+        },
+        {
+          "id": "J8_standalone",
+          "passed": true,
+          "reason": "The lesson explains all required concepts (chunks, embeddings, vector database, retrieval, augment, generate) in plain language without assuming prior programming or ML knowledge.",
+          "evidence": "\"Chunk - The system prepares the knowledge by splitting documents into small pieces called chunks, such as a few paragraphs each.\" \"Embed - Each chunk is converted into an embedding, which is a list of numbers that represents the meaning of the text.\"",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        }
+      ]
+    }
+  ]
+}

@@ -43,7 +43,7 @@ def load_facts(topic: str) -> str:
         t += " rag"
     for p in sorted(KNOWLEDGE.glob("*.md")):
         if p.stem.lower() in re.findall(r"[a-z0-9]+", t):
-            return p.read_text()
+            return p.read_text(encoding="utf-8")
     raise FileNotFoundError(f"No reference facts for topic '{topic}'. Add {KNOWLEDGE}/<topic-keyword>.md")
 
 
@@ -92,6 +92,14 @@ class Pipeline:
             regressions = [r.id for r in ev.results if prev.get(r.id) and not r.passed]
         att = Attempt(n, s["draft"], ev, s.get("pending_changes", []), s.get("pending_injection"), regressions)
         s["attempts"].append(att)
+        try:  # save progress immediately (survives Ctrl+C / crashes)
+            d = self.out_root / s["run_id"] / "drafts"
+            d.mkdir(parents=True, exist_ok=True)
+            (d / f"attempt_{n}.md").write_text(s["draft"], encoding="utf-8")
+            (d / f"attempt_{n}_scores.json").write_text(json.dumps(ev.to_dict(), indent=2, ensure_ascii=False),
+                                                        encoding="utf-8")
+        except OSError:
+            pass
         for r in ev.results:
             self.log(f"           {'PASS' if r.passed else 'FAIL'}  {r.id:<24} {r.reason[:110]}")
         self.log(f"           => {ev.score}/{len(ev.results)} {'SHIP' if ev.passed else 'REJECT'}"
@@ -102,6 +110,10 @@ class Pipeline:
         last = s["attempts"][-1]
         if last.evaluation.passed:
             return "ship"
+        if any("daily quota" in r.reason for r in last.evaluation.results):
+            self.log("[route]    judge's daily API quota is exhausted -> stop now and hold the best draft "
+                     "(switch LF_JUDGE_MODEL or wait for the reset)")
+            return "hold"
         if len(s["attempts"]) - 1 < self.max_retries:
             return "revise"
         return "hold"
@@ -136,7 +148,8 @@ class Pipeline:
         for a in s["attempts"]:
             if a.injected_error:
                 continue
-            self.memory.record_failures(a.evaluation.failed)
+            # Judge/API errors (e.g. rate limits) say nothing about the writing - don't learn from them.
+            self.memory.record_failures([r for r in a.evaluation.failed if not r.reason.startswith("Judge error")])
         first = s["attempts"][0]
         self.memory.record_run({
             "run_id": s["run_id"], "topic": s["topic"], "status": s["status"],
@@ -146,7 +159,8 @@ class Pipeline:
             "rules_used": len(self.memory.data["learned_rules"]),
             "injected": self.inject_mode,
         })
-        organic_fail = any(a.evaluation.failed for a in s["attempts"] if not a.injected_error)
+        organic_fail = any(r for a in s["attempts"] if not a.injected_error
+                           for r in a.evaluation.failed if not r.reason.startswith("Judge error"))
         if self.learn_enabled and (organic_fail or self.memory.data["human_feedback"]):
             self.refine_rules(s["run_id"])
         self.memory.save()
@@ -198,12 +212,12 @@ class Pipeline:
         out = self.out_root / s["run_id"]
         (out / "drafts").mkdir(parents=True, exist_ok=True)
         for a in s["attempts"]:
-            (out / "drafts" / f"attempt_{a.number}.md").write_text(a.lesson)
+            (out / "drafts" / f"attempt_{a.number}.md").write_text(a.lesson, encoding="utf-8")
         final = s["final"]
         banner = "" if s["status"] == "SHIPPED" else (
             "> **NOT SHIPPED - NEEDS HUMAN REVIEW.** This is the best draft; some checks still fail. "
             "See rejection_log.md.\n\n")
-        (out / "lesson.md").write_text(banner + final.lesson)
+        (out / "lesson.md").write_text(banner + final.lesson, encoding="utf-8")
         log = {
             "run_id": s["run_id"], "topic": s["topic"], "status": s["status"],
             "final_attempt": final.number, "max_retries": self.max_retries,
@@ -217,8 +231,8 @@ class Pipeline:
                  **a.evaluation.to_dict()} for a in s["attempts"]
             ],
         }
-        (out / "rejection_log.json").write_text(json.dumps(log, indent=2, ensure_ascii=False))
-        (out / "rejection_log.md").write_text(rejection_log_md(log))
+        (out / "rejection_log.json").write_text(json.dumps(log, indent=2, ensure_ascii=False), encoding="utf-8")
+        (out / "rejection_log.md").write_text(rejection_log_md(log), encoding="utf-8")
         latest = self.out_root / "latest"
         if latest.exists():
             shutil.rmtree(latest)

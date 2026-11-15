@@ -1,0 +1,167 @@
+{
+  "run_id": "run_20261115_203624_6999",
+  "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+  "status": "NEEDS_HUMAN_REVIEW",
+  "final_attempt": 1,
+  "max_retries": 2,
+  "generator_model": "gemini:gemini-3.6-flash",
+  "judge_model": "openai_compat:openai/gpt-oss-20b",
+  "llm_calls": 9,
+  "learned_rules_used": [
+    "- [J5_jargon_explained] Define every technical term or acronym (e.g., RAG, weights, retrieve, hallucinate) in plain language at its exact first appearance in the body.",
+    "- [D6_glossary_coverage] List every technical term, acronym, or process word (e.g., prompt, chunk, top-k, augment) mentioned anywhere in the lesson inside the Key Words glossary.",
+    "- [J2_grounded] Strictly use facts, proper nouns, and acronyms provided in the reference data; do not alter names (e.g., FAISS) or introduce unverified claims.",
+    "- [J4_teaches_by_example] Mention the running example character by name in every single step of the pipeline, showing how their specific query/data moves through that step.",
+    "- [D3_sentence_length] Keep all sentences under 25 words and target an average under 14 words by splitting compound clauses into direct statements.",
+    "- [J7_flow] Avoid referencing unexplained terms beforehand, and conclude with a recap section that summarizes all core steps and ideas taught.",
+    "- [D1_structure] Include all required sections (Example, Key Words, Body, Recap, Quiz) and ensure the lesson total is strictly between 700 and 2000 words.",
+    "- [D7_quiz] End the lesson with at least three numbered quiz questions, providing an explicit answer for every question."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "injected_error": null,
+      "changes_requested": [],
+      "regressions": [],
+      "passed": false,
+      "score": "8/15",
+      "results": [
+        {
+          "id": "D1_structure",
+          "passed": true,
+          "reason": "All 7 sections present and in order",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "code"
+        },
+        {
+          "id": "D2_length",
+          "passed": true,
+          "reason": "1490 words (allowed 700-2000)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "code"
+        },
+        {
+          "id": "D3_sentence_length",
+          "passed": true,
+          "reason": "Average 13.0 words/sentence (max 16); 0 sentence(s) over 30 words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D4_readability",
+          "passed": true,
+          "reason": "Flesch Reading Ease 64.3 (need >= 55)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D5_hard_words",
+          "passed": true,
+          "reason": "No hard words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "code"
+        },
+        {
+          "id": "D6_glossary_coverage",
+          "passed": true,
+          "reason": "Every jargon term used is in Key words",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "code"
+        },
+        {
+          "id": "D7_quiz",
+          "passed": true,
+          "reason": "4 question(s), 4 answer(s) (need >= 3, each answered)",
+          "evidence": "",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "code"
+        },
+        {
+          "id": "J1_accurate",
+          "passed": false,
+          "reason": "Judge error (fail-closed): daily quota exhausted for this model: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m7d2wdmge58sqmf4ewp78bb8` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 196867, Req",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J2_grounded",
+          "passed": false,
+          "reason": "Judge error (fail-closed): daily quota exhausted for this model: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m7d2wdmge58sqmf4ewp78bb8` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 196867, Req",
+          "evidence": "",
+          "fix": "",
+          "dimension": "accurate & grounded",
+          "kind": "llm"
+        },
+        {
+          "id": "J3_key_points",
+          "passed": false,
+          "reason": "Judge error (fail-closed): daily quota exhausted for this model: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m7d2wdmge58sqmf4ewp78bb8` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 196864, Req",
+          "evidence": "",
+          "fix": "",
+          "dimension": "covers the key points",
+          "kind": "llm"
+        },
+        {
+          "id": "J4_teaches_by_example",
+          "passed": true,
+          "reason": "All steps include Ravi example",
+          "evidence": "Step 1: *Ravi's example:* The system takes the 50-page college rulebook and splits it into small paragraph chunks.\nStep 2: *Ravi's example:* The system converts each chunk of Ravi's college rulebook into a list of numbers and stores them in a vector database.\nStep 3: *Ravi's example:* Ravi types the question: \"What is the last date to pay college fees?\" The system turns Ravi's question into an embedding. It retrieves the top-k chunks about fee dates from the vector database.\nStep 4: *Ravi's example:* The system combines the retrieved fee chunks with Ravi's question into a single prompt.\nStep 5: *Ravi's example:* The LLM reads the combined prompt and writes a clear answer telling Ravi his fee deadline.",
+          "fix": "",
+          "dimension": "teaches by example",
+          "kind": "llm"
+        },
+        {
+          "id": "J5_jargon_explained",
+          "passed": false,
+          "reason": "Judge error (fail-closed): daily quota exhausted for this model: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m7d2wdmge58sqmf4ewp78bb8` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199321, Req",
+          "evidence": "",
+          "fix": "",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm"
+        },
+        {
+          "id": "J6_language_fit",
+          "passed": false,
+          "reason": "Judge error (fail-closed): daily quota exhausted for this model: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m7d2wdmge58sqmf4ewp78bb8` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199320, Req",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        },
+        {
+          "id": "J7_flow",
+          "passed": false,
+          "reason": "Judge error (fail-closed): daily quota exhausted for this model: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m7d2wdmge58sqmf4ewp78bb8` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199320, Req",
+          "evidence": "",
+          "fix": "",
+          "dimension": "coherent teaching flow",
+          "kind": "llm"
+        },
+        {
+          "id": "J8_standalone",
+          "passed": false,
+          "reason": "Judge error (fail-closed): daily quota exhausted for this model: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m7d2wdmge58sqmf4ewp78bb8` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199319, Req",
+          "evidence": "",
+          "fix": "",
+          "dimension": "beginner-friendly language",
+          "kind": "llm"
+        }
+      ]
+    }
+  ]
+}

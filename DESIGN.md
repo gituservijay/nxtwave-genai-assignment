@@ -76,9 +76,9 @@ Some dimensions have **both** a code check and an LLM check on purpose. D6 catch
 | Hallucinated verdicts | Must return **evidence quotes** from the lesson; the quote is shown in the log so a human can audit it |
 | Leniency | Temperature 0; "If you are unsure, it FAILS". A false fail costs one retry. A false pass ships a bad lesson to a learner. That asymmetry decides it |
 | "Accurate" judged from the model's own memory | A curated **reference fact sheet with IDs and a list of known misconceptions** (`knowledge/rag.md`) is the ground truth for both writer and judge. Accuracy becomes "consistent with these facts", which a judge can actually verify |
-| Broken JSON or API errors | Robust JSON extraction, one repair retry, then **fail-closed** |
+| Broken JSON or API errors | Provider JSON mode, robust JSON extraction, one repair retry, one infrastructure retry, then **fail-closed** |
 | Self-preference bias | Judge never sees the writer's prompt. Writer and judge can be different models |
-| Latency | Judge calls run in parallel threads |
+| Latency / cost | Judge calls run in parallel threads; only fact-dependent checks (J1–J3) receive the fact sheet |
 
 ### 3.4 Proving the evaluator works
 
@@ -137,7 +137,27 @@ Design decisions:
 
 Rough cost per run: 1 generation + 8 judge calls per attempt + 1 revision per retry + 1 refinement, so 10–29 LLM calls.
 
-## 7. Known limitations and next steps
+## 7. What the real runs taught me (and what I changed)
+
+The first real runs on free API tiers surfaced problems that offline tests could not. Each one led to a design change:
+
+| Observed in a real run | Root cause | Change |
+|---|---|---|
+| The judge failed the idiom "garbage in, garbage out" (J6) | The phrase was in my own fact sheet, so the writer copied it | Removed it from the reference facts. The evaluator caught a flaw in *my* input, which is exactly its job |
+| Many checks "failed" with HTTP 429 | Free-tier rate limits, not bad content | Patient retries with backoff (honouring `Retry-After`). Judge errors are **excluded from learning**, so the memory doesn't learn rules from API noise |
+| Every Groq call failed with HTTP 403 / 1010 | Cloudflare blocks the default Python user agent | Send an explicit `User-Agent` |
+| The judge returned no JSON | Reasoning models spend the token budget "thinking" and never answer | `reasoning_effort=low` + provider JSON mode + a bigger judge token cap; one retry on infrastructure errors before failing closed |
+| J5 failed on the title "Intro to RAG" and on terms that appear only in Key words | Rubric ambiguity, not a content problem | Calibrated the judge method; the writer spells out "Retrieval-Augmented Generation (RAG)" in the title |
+| J2 flagged details of the made-up example story (a student's library fee) | The judge confused illustrations with facts | J2 now treats running-example details as illustrations; only real-world claims are checked |
+| Fixing one check sometimes broke another (logged as a *regression*) | The reviser joined sentences while fixing jargon | The reviser must keep every changed sentence under 20 words; regressions are tracked per attempt |
+| Daily quotas ran out after a few runs | 8 judge calls × 3 attempts, each with the full fact sheet | Only the 3 fact-dependent checks get the fact sheet (~40% fewer tokens); writer and judge use separate providers |
+| Windows crash while saving the lesson | cp1252 console/file encoding | UTF-8 everywhere |
+
+The memory also did its job across these runs. Rules learned from real failures (for example *"keep sentences under 25 words"*, *"list prompt, retrieval, augment and top-k in Key words"*) were loaded into later prompts. With the same writer model, the first draft went from 2 failed code checks (D3 sentence length, D6 glossary) before the rules to 0 after them. That's a small sample, not proof, but the direction is right; see `python -m lessonforge stats`.
+
+**Lesson for production:** most of the work in a self-evaluating system goes into **calibrating the evaluator** and making it **robust to infrastructure noise**, not into the generator prompt.
+
+## 8. Known limitations and next steps
 
 - **Judge calibration.** Next, I would build a small labelled set of good and bad lessons to measure the judge's precision and recall per check, then tune the prompts or swap the judge model.
 - **Readability metrics are English-centric proxies.** A learner-in-the-loop test (comprehension quiz scores from real students) would be the true signal, and could feed `human_feedback` automatically.

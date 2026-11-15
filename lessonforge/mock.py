@@ -18,7 +18,7 @@ FIX = Path(__file__).parent / "fixtures"
 
 
 def flawed_first_draft() -> str:
-    good = (FIX / "good_lesson.md").read_text()
+    good = (FIX / "good_lesson.md").read_text(encoding="utf-8")
     bad = good.replace(
         "An LLM is a computer program that has read a huge amount of text.",
         "An LLM is a computer program that has been trained on an extremely large collection of text from books, "
@@ -33,7 +33,7 @@ class MockResponder:
         if tag == "generate":
             return flawed_first_draft()
         if tag == "revise":
-            return (FIX / "good_lesson.md").read_text()
+            return (FIX / "good_lesson.md").read_text(encoding="utf-8")
         if tag == "refine":
             ids = re.findall(r"^(\w+_\w+): failed", user, re.M)
             rules = [{"check_id": i, "rule": f"Pre-empt {i}: re-read the draft for this before finishing."} for i in ids[:8]]

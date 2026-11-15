@@ -10,7 +10,7 @@ from lessonforge.memory import Memory
 from lessonforge.mock import MockResponder, flawed_first_draft
 from lessonforge.pipeline import Pipeline
 
-GOOD = (Path(__file__).parent.parent / "lessonforge" / "fixtures" / "good_lesson.md").read_text()
+GOOD = (Path(__file__).parent.parent / "lessonforge" / "fixtures" / "good_lesson.md").read_text(encoding="utf-8")
 
 
 def mock_llm():
@@ -44,7 +44,7 @@ def test_loop_terminates_and_holds_when_budget_is_zero(tmp_path):
     s = make(tmp_path, max_retries=0).run("RAG")
     assert s["status"] == "NEEDS_HUMAN_REVIEW"
     assert len(s["attempts"]) == 1
-    assert "NOT SHIPPED" in (Path(s["out_dir"]) / "lesson.md").read_text()
+    assert "NOT SHIPPED" in (Path(s["out_dir"]) / "lesson.md").read_text(encoding="utf-8")
 
 
 @pytest.mark.parametrize("mode,expected", [
@@ -90,3 +90,66 @@ def test_extract_json_handles_fences():
 def test_all_injection_modes_change_text():
     for m in MODES:
         assert inject(GOOD, m)[0] != GOOD
+
+
+def test_judge_retries_once_on_infrastructure_error():
+    from lessonforge.evaluator import Evaluator
+    calls = {"n": 0}
+
+    def flaky(system, user, tag):
+        calls["n"] += 1
+        if calls["n"] % 2 == 1:          # every first try returns garbage
+            return "no json here"
+        return '{"passed": true, "reason": "ok", "evidence": "x", "fix": ""}'
+
+    llm = LLM(LLMConfig("mock", "mock"), flaky)
+    ev = Evaluator(llm, "facts").evaluate(GOOD)
+    assert all(r.passed for r in ev.results if r.kind == "llm")
+
+
+def test_only_fact_checks_receive_reference_facts():
+    from lessonforge.evaluator import FACT_CHECKS, Evaluator
+    seen = {}
+
+    def spy(system, user, tag):
+        seen[tag.split(":", 1)[1]] = "SECRET-FACT" in user
+        return '{"passed": true, "reason": "ok", "evidence": "x", "fix": ""}'
+
+    Evaluator(LLM(LLMConfig("mock", "mock"), spy), "SECRET-FACT").evaluate(GOOD)
+    assert {k for k, v in seen.items() if v} == FACT_CHECKS
+
+
+def test_openai_compat_fallback_and_empty_reply(monkeypatch):
+    import lessonforge.llm as L
+    sent = []
+
+    def fake_post(url, payload, headers, retries=6):
+        sent.append(payload)
+        if "reasoning_effort" in payload:
+            raise L.LLMError("HTTP 400 from x: unsupported parameter")
+        return {"choices": [{"message": {"content": '{"passed": true}'}, "finish_reason": "stop"}]}
+
+    monkeypatch.setattr(L, "_post", fake_post)
+    monkeypatch.setenv("OPENAI_COMPAT_API_KEY", "k")
+    llm = L.LLM(L.LLMConfig("openai_compat", "openai/gpt-oss-20b", 0.0, 3000))
+    assert llm.call_json("s", "u") == {"passed": True}
+    assert "reasoning_effort" in sent[0] and "reasoning_effort" not in sent[1]
+
+    monkeypatch.setattr(L, "_post", lambda *a, **k: {"choices": [{"message": {"content": ""}, "finish_reason": "length"}]})
+    with pytest.raises(L.LLMError, match="empty reply"):
+        llm.call("s", "u")
+
+
+def test_extract_json_strips_think_blocks():
+    assert extract_json('<think>maybe {"a": 1}?</think>\n{"passed": false}') == {"passed": False}
+
+
+def test_daily_quota_stops_loop_early(tmp_path):
+    def quota_judge(system, user, tag):
+        raise RuntimeError("daily quota exhausted for this model")
+    gen = mock_llm()
+    judge = LLM(LLMConfig("mock", "mock"), quota_judge)
+    p = Pipeline(gen, judge, Memory(tmp_path / "m.json"), tmp_path / "o", log=lambda *_: None, engine="builtin")
+    s = p.run("RAG")
+    assert s["status"] == "NEEDS_HUMAN_REVIEW" and len(s["attempts"]) == 1
+    assert (Path(s["out_dir"]) / "drafts" / "attempt_1.md").exists()
